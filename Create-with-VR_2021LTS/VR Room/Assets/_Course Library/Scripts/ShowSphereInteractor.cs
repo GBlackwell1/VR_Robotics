@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class ShowSphereInteractor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // So we can't disable the game object here because it will disable the colliders
+    // Need to enable and disable the mesh renderer component
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject.Find("RightHand Controller").GetComponent<XR Interactor Line Visual>();
+        if(other.gameObject.tag == "Hand") {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        var ray = 
-        if (ray, )
+        if (other.gameObject.tag == "Hand")
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 }
+
