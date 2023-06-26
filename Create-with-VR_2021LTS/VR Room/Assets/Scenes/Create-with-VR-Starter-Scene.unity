@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &48137187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2311,7 +2311,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920921510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5346,6 +5346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 0}
   ghostArm: {fileID: 0}
+  ghostPivot: {fileID: 0}
 --- !u!114 &1851335424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6734,12 +6735,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6920269581105224158}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6920269581105224158}
         m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
         m_MethodName: GhostArmDeactivation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6920269581105224158}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6799,6 +6824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 712900736}
   ghostArm: {fileID: 48137186}
+  ghostPivot: {fileID: 1101863244}
 --- !u!1 &7036037538845403439
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,12 +6966,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7237796858435742613}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7237796858435742613}
         m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
         m_MethodName: GhostArmDeactivation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7237796858435742613}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7005,6 +7055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 712900736}
   ghostArm: {fileID: 48137186}
+  ghostPivot: {fileID: 1085770930}
 --- !u!23 &7875627537620661711
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7144,12 +7195,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7953606483323707487}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7953606483323707487}
         m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
         m_MethodName: GhostArmDeactivation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7953606483323707487}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7223,6 +7298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 712900736}
   ghostArm: {fileID: 48137186}
+  ghostPivot: {fileID: 1851335421}
 --- !u!4 &8600727677392411599
 Transform:
   m_ObjectHideFlags: 0
@@ -7314,12 +7390,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8600727677392411604}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8600727677392411604}
         m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
         m_MethodName: GhostArmDeactivation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8600727677392411604}
+        m_TargetAssemblyTypeName: PivotController, Assembly-CSharp
+        m_MethodName: SelectionHandler
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7379,6 +7479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 712900736}
   ghostArm: {fileID: 48137186}
+  ghostPivot: {fileID: 1550068123}
 --- !u!4 &8848377960171008501
 Transform:
   m_ObjectHideFlags: 0
@@ -7537,3 +7638,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 712900736}
   ghostArm: {fileID: 48137186}
+  ghostPivot: {fileID: 0}

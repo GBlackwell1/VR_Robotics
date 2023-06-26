@@ -6,6 +6,7 @@ public class PivotController : MonoBehaviour
 {
     [SerializeField] GameObject hand;
     [SerializeField] GameObject ghostArm;
+    [SerializeField] GameObject ghostPivot;
 
     // Defaults for ghost arm and selection activation
     private bool isActive = false;
@@ -13,6 +14,7 @@ public class PivotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
     }
     // Update is called once per frame
     void Update()
@@ -21,22 +23,22 @@ public class PivotController : MonoBehaviour
         {
             // If the pivot is base rotate around the base
             // if it's any other pivot, rotate around it's y
-            if (gameObject.name == "base")
+            if (ghostPivot.name == "base") 
             {
-                gameObject.transform.Rotate(0f, 0f, hand.transform.rotation.z);
-            }
-            else
+                ghostPivot.transform.Rotate(0f, 0f, hand.transform.rotation.x);
+            } 
+            else if (ghostPivot.name != "base")
             {
-                gameObject.transform.Rotate(0f, hand.transform.rotation.y, 0f);
+                ghostPivot.transform.Rotate(0f, hand.transform.rotation.x, 0f);
             }
         }
     }
+
     // Enable and disable the view of the GhostArm
     public void GhostArmActivation()
     {
         // tried flipping bool but it didnt work
         ghostArm.SetActive(true);
-
     }
     public void GhostArmDeactivation()
     {
