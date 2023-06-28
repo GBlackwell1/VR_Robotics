@@ -21,7 +21,9 @@ public class ToggleRay : MonoBehaviour
     private void Awake()
     {
         rayInteractor = GetComponent<XRRayInteractor>();
-        SwitchInteractors(false);
+        // Changed to display ray interactors on first boot
+        // Hard code the true onAwake
+        SwitchInteractors(true);
     }
 
     public void ActivateRay()

@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d28f705476c80d47acb3dfade3d3142, type: 3}
   m_Name: MetaXRFoveationFeature Standalone
   m_EditorClassIdentifier: 
-  m_enabled: 0
+  m_enabled: 1
+  <failedInitialization>k__BackingField: 0
   nameUi: Meta XR Foveation
   version: 1.0.0
   featureIdInternal: com.meta.openxr.feature.foveation
@@ -236,8 +237,6 @@ MonoBehaviour:
   - {fileID: 7398921005798238389}
   - {fileID: 3128996249378202262}
   - {fileID: 4559287326537198361}
-  - {fileID: 7895522069966006071}
-  - {fileID: -2794107625880158850}
   - {fileID: 1705735422502638424}
   - {fileID: -1947423836121269540}
   - {fileID: 4216844650846956424}
@@ -281,6 +280,7 @@ MonoBehaviour:
   m_Name: MetaXRFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
+  <failedInitialization>k__BackingField: 0
   nameUi: Meta XR Feature
   version: 0.0.1
   featureIdInternal: com.meta.openxr.feature.metaxr
@@ -548,8 +548,6 @@ MonoBehaviour:
   - {fileID: 3466697353013665970}
   - {fileID: 3168575946016990294}
   - {fileID: -4276212828553501004}
-  - {fileID: -1042276661449486972}
-  - {fileID: 7072926789877214125}
   - {fileID: 6207573798233239600}
   - {fileID: -5429519714038541482}
   - {fileID: 6183753531833196814}
@@ -570,6 +568,7 @@ MonoBehaviour:
   m_Name: MetaXRFoveationFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
+  <failedInitialization>k__BackingField: 0
   nameUi: Meta XR Foveation
   version: 1.0.0
   featureIdInternal: com.meta.openxr.feature.foveation
@@ -610,6 +609,7 @@ MonoBehaviour:
   m_Name: MetaXRFeature Standalone
   m_EditorClassIdentifier: 
   m_enabled: 0
+  <failedInitialization>k__BackingField: 0
   nameUi: Meta XR Feature
   version: 0.0.1
   featureIdInternal: com.meta.openxr.feature.metaxr
