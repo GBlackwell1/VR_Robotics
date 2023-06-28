@@ -362,7 +362,7 @@ MonoBehaviour:
   jBox: {fileID: 1085770930}
   jEPivotTwo: {fileID: 1101863244}
   jHandControl: {fileID: 1550068123}
-  jEPivot: {fileID: 1860819698}
+  moveReady: 1
 --- !u!4 &48137188
 Transform:
   m_ObjectHideFlags: 0
@@ -2414,6 +2414,7 @@ GameObject:
   - component: {fileID: 573101218}
   - component: {fileID: 573101217}
   - component: {fileID: 573101216}
+  - component: {fileID: 573101220}
   m_Layer: 0
   m_Name: UI Right
   m_TagString: Untagged
@@ -2522,6 +2523,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &573101220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573101214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1d307cd200668428d1dc95cc2b49f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 638842059}
+  robot: {fileID: 919132149255548545}
+  button: {fileID: 642599395}
 --- !u!1 &638842059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2756,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 642599396}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 919132149255548546}
+        m_TargetAssemblyTypeName: RobotController, Assembly-CSharp
+        m_MethodName: MoveRobot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &642599396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10007,7 +10035,7 @@ MonoBehaviour:
   jBox: {fileID: 6518845717779952706}
   jEPivotTwo: {fileID: 6057969627076920446}
   jHandControl: {fileID: 207556666402583888}
-  jEPivot: {fileID: 3900588451424245023}
+  moveReady: 1
 --- !u!23 &1109409538210521820
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10962,7 +10990,6 @@ GameObject:
   - component: {fileID: 4517414768031110383}
   - component: {fileID: 4531912228324388570}
   - component: {fileID: 7953606483323707484}
-  - component: {fileID: 7953606483323707486}
   - component: {fileID: 7953606483323707485}
   - component: {fileID: 7953606483323707487}
   m_Layer: 0
@@ -11110,18 +11137,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7953606483323707486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953606483323707481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b3b3f04ac18184468bedd999e5a6688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7953606483323707487
 MonoBehaviour:
   m_ObjectHideFlags: 0

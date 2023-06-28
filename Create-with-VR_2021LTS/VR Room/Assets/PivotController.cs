@@ -7,13 +7,15 @@ public class PivotController : MonoBehaviour
     [SerializeField] GameObject hand;
     [SerializeField] GameObject ghostArm;
     [SerializeField] GameObject ghostPivot;
+    private GameObject robot;
+    private float speed = 100f;
 
     // Defaults forselection activation
     private bool isSelected = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        robot = GameObject.Find("Robot_Arm_01");
     }
     // Update is called once per frame
     void Update()
@@ -25,8 +27,8 @@ public class PivotController : MonoBehaviour
             if (ghostPivot.name == "base") 
             {
                 ghostPivot.transform.Rotate(0f, 0f, hand.transform.rotation.x);
-            } 
-            else if (ghostPivot.name != "base")  // Add this clarifier for other objects in scene
+            }  // Add below clarifier for other objects in scene
+            else if (ghostPivot.name != "base")  
             {
                 ghostPivot.transform.Rotate(0f, hand.transform.rotation.x, 0f);
             }
@@ -42,15 +44,61 @@ public class PivotController : MonoBehaviour
     // do not deactivate it, leave it active until the positions are the same
     public void GhostArmDeactivation()
     {
-        // This feature is disabled for the base since the base of both robots should
-        // always be in the same position
-        if (ghostPivot.transform.position == gameObject.transform.position 
-            && ghostPivot.transform.rotation == gameObject.transform.rotation)  // Check for rotation since eccentric pivots will have same position
+        // This feature is disabled for the base since the base of both robots 
+        // should always be in the same position
+        if (ghostPivot.transform.position == gameObject.transform.position
+            && ghostPivot.transform.rotation == gameObject.transform.rotation)
+        {
+            // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
+            robot.GetComponent<RobotController>().moveReady = true;
+        }
+            
     }
     // Only run the update function if something is selected
     public void SelectionHandler()
     {
         isSelected = !isSelected;
+    }
+    // Method that's called when needed to move the robot arms' pivots
+    public void TranslatePivot()
+    {
+        // This check to see if pivot points are equal, if they aren't 
+        // start a coroutine, user can currently click submit several times
+        // and this negates excess runtime calculations
+        if(ghostPivot.transform.rotation != gameObject.transform.rotation)
+        {
+            //robot.GetComponent<RobotController>().moveReady = false;
+            StartCoroutine(MovePivot());
+        }
+    }
+
+    IEnumerator MovePivot()
+    {
+        while (ghostPivot.transform.rotation != gameObject.transform.rotation)
+        {
+            // Rotate the position of the pivot in relation of the ghost arm
+            if (gameObject.name == "base")
+            {
+                gameObject.transform.Rotate
+                    (0f, 0f,
+                    (ghostPivot.transform.rotation.z - gameObject.transform.rotation.z) * Time.deltaTime * speed);
+            }
+            else
+            {
+                gameObject.transform.Rotate
+                    (0f,
+                    (ghostPivot.transform.rotation.y - gameObject.transform.rotation.y) * Time.deltaTime * speed,
+                    0f);
+            }
+            yield return null;
+        }
+        // This might work? We'll comment out and see later.
+        Debug.Log("CoRoutine Should stop here");
+        // Little cheaty but move the robot the rest of the way
+        // Basically unity stops calculations when flaots get reasonably close so just
+        // Snap the robot into place
+        gameObject.transform.rotation = ghostPivot.transform.rotation;
+        StopCoroutine(MovePivot());
     }
 }

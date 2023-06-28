@@ -9,18 +9,17 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject jBox;
     [SerializeField] GameObject jEPivotTwo;
     [SerializeField] GameObject jHandControl;
-    [SerializeField] GameObject jEPivot;
-
-    private GameObject hand;
-    // Start is called before the first frame update
-    void Start()
+    // [SerializeField] GameObject jEPivot;
+    public bool moveReady = true;
+    
+    // Call one function instead of 5 different functions
+    // upon the submit move button click
+    public void MoveRobot()
     {
-        // Currently only the right hand has the ability to interact with the robot
-        hand = GameObject.Find("RightHand Controller");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        jBase.GetComponent<PivotController>().TranslatePivot();
+        //jBox.GetComponent<PivotController>().TranslatePivot();
+        //jEPivotTwo.GetComponent<PivotController>().TranslatePivot();
+        //jHandControl.GetComponent<PivotController>().TranslatePivot();
+        // jEPivot.GetComponent<PivotController>().TranslatePivot();
     }
 }
