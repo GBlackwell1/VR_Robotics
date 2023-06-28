@@ -14,3 +14,10 @@
 ## Removed
 - Oculus development package
 - Deprecated Oculus Quest 2 controller models
+
+## Future Agenda
+- Full tutorial
+- Clean through built in asset imports to remove bulk
+- Disable interactvity until move complete
+- Reset and Submit buttons working
+- INTERACTABLE text coloring and change working
