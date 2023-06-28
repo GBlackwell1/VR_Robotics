@@ -17,9 +17,9 @@ public class RobotController : MonoBehaviour
     public void MoveRobot()
     {
         jBase.GetComponent<PivotController>().TranslatePivot();
-        //jBox.GetComponent<PivotController>().TranslatePivot();
-        //jEPivotTwo.GetComponent<PivotController>().TranslatePivot();
-        //jHandControl.GetComponent<PivotController>().TranslatePivot();
+        jBox.GetComponent<PivotController>().TranslatePivot();
+        jEPivotTwo.GetComponent<PivotController>().TranslatePivot();
+        jHandControl.GetComponent<PivotController>().TranslatePivot();
         // jEPivot.GetComponent<PivotController>().TranslatePivot();
     }
 }

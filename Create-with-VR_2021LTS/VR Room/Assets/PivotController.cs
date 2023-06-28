@@ -95,7 +95,7 @@ public class PivotController : MonoBehaviour
         }
         // This might work? We'll comment out and see later.
         Debug.Log("CoRoutine Should stop here");
-        // Little cheaty but move the robot the rest of the way
+        // Little cheeky but move the robot the rest of the way
         // Basically unity stops calculations when flaots get reasonably close so just
         // Snap the robot into place
         gameObject.transform.rotation = ghostPivot.transform.rotation;
