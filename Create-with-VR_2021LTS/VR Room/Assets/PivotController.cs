@@ -12,6 +12,9 @@ public class PivotController : MonoBehaviour
 
     // Defaults forselection activation
     private bool isSelected = false;
+
+    // Default robot starting positions
+    [SerializeField] GameObject ResetPostion;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,44 +64,59 @@ public class PivotController : MonoBehaviour
         isSelected = !isSelected;
     }
     // Method that's called when needed to move the robot arms' pivots
-    public void TranslatePivot()
+    // boolean here determines whether or not the submit move button
+    // or the reset button has been hit
+    public void TranslatePivot(bool reset = false)
     {
         // This check to see if pivot points are equal, if they aren't 
         // start a coroutine, user can currently click submit several times
         // and this negates excess runtime calculations
         if(ghostPivot.transform.rotation != gameObject.transform.rotation)
         {
-            //robot.GetComponent<RobotController>().moveReady = false;
-            StartCoroutine(MovePivot());
+            StartCoroutine(MovePivot(reset));
         }
     }
 
-    IEnumerator MovePivot()
+    IEnumerator MovePivot(bool reset)
     {
-        while (ghostPivot.transform.rotation != gameObject.transform.rotation)
+        GameObject target;
+        // So check if the button wants us to reset, if so then assign target
+        // To reset position else assign it to the regular ghost arm pivot
+        if (!reset)
         {
-            // Rotate the position of the pivot in relation of the ghost arm
+            target = ghostPivot;
+        }
+        else
+        {
+            target = ResetPostion;
+        }
+        // While the target's rotation is not the same as the current pivot's
+        // continue to rotate the pivot towards that direction
+        while (target.transform.rotation != gameObject.transform.rotation)
+        {
+               // Rotate the position of the pivot in relation of the ghost arm
             if (gameObject.name == "base")
             {
                 gameObject.transform.Rotate
                     (0f, 0f,
-                    (ghostPivot.transform.rotation.z - gameObject.transform.rotation.z) * Time.deltaTime * speed);
+                    (target.transform.rotation.z - gameObject.transform.rotation.z) * Time.deltaTime * speed);
             }
             else
             {
                 gameObject.transform.Rotate
                     (0f,
-                    (ghostPivot.transform.rotation.y - gameObject.transform.rotation.y) * Time.deltaTime * speed,
+                    (target.transform.rotation.y - gameObject.transform.rotation.y) * Time.deltaTime * speed,
                     0f);
             }
             yield return null;
         }
-        // This might work? We'll comment out and see later.
         Debug.Log("CoRoutine Should stop here");
         // Little cheeky but move the robot the rest of the way
-        // Basically unity stops calculations when flaots get reasonably close so just
+        // Basically unity stops calculations when floats get reasonably close so just
         // Snap the robot into place
-        gameObject.transform.rotation = ghostPivot.transform.rotation;
-        StopCoroutine(MovePivot());
+        gameObject.transform.rotation = target.transform.rotation;
+        // Stop the current routine and tell the UI that the robot is ready to move!
+        StopCoroutine(MovePivot(reset));
+        robot.GetComponent<RobotController>().moveReady = true;
     }
 }
