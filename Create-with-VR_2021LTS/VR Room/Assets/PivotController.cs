@@ -45,17 +45,18 @@ public class PivotController : MonoBehaviour
     }
     // If the position of the ghost arm is not the same as the visible arm
     // do not deactivate it, leave it active until the positions are the same
-    public void GhostArmDeactivation()
+    public void GhostArmDeactivation(bool isReset)
     {
         // This feature is disabled for the base since the base of both robots 
         // should always be in the same position
         if (ghostPivot.transform.position == gameObject.transform.position
-            && ghostPivot.transform.rotation == gameObject.transform.rotation)
+            && ghostPivot.transform.rotation == gameObject.transform.rotation
+           && !isReset)
         {
             // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
             robot.GetComponent<RobotController>().moveReady = true;
-        }
+        } else if (isReset) { ghostArm.SetActive(false); }
             
     }
     // Only run the update function if something is selected
@@ -82,20 +83,18 @@ public class PivotController : MonoBehaviour
         GameObject target;
         // So check if the button wants us to reset, if so then assign target
         // To reset position else assign it to the regular ghost arm pivot
-        if (!reset)
+        if (reset)
         {
-            target = ghostPivot;
+            ghostPivot.transform.position = ResetPostion.transform.position;
+            GhostArmDeactivation(true);
         }
-        else
-        {
-            target = ResetPostion;
-        }
+        target = ghostPivot;
         // While the target's rotation is not the same as the current pivot's
         // continue to rotate the pivot towards that direction
         while (target.transform.rotation != gameObject.transform.rotation)
         {
-               // Rotate the position of the pivot in relation of the ghost arm
-            if (gameObject.name == "base")
+            // Rotate the position of the pivot in relation of the ghost arm
+            if (gameObject.name == "base" || gameObject.name == "hand_controller")
             {
                 gameObject.transform.Rotate
                     (0f, 0f,

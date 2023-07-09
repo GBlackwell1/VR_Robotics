@@ -3359,7 +3359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 638842059}
   robot: {fileID: 919132149255548545}
-  button: {fileID: 642599395}
+  submitButton: {fileID: 642599395}
+  resetButton: {fileID: 732837592}
 --- !u!1 &638842059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4629,6 +4630,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: default
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 116bf9f6c278b2c40b3a04376bdf7aab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116bf9f6c278b2c40b3a04376bdf7aab, type: 3}

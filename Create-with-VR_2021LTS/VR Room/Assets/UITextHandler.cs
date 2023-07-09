@@ -8,7 +8,8 @@ public class UITextHandler : MonoBehaviour
 {
     [SerializeField] GameObject text;
     [SerializeField] GameObject robot;
-    [SerializeField] Button button;
+    [SerializeField] Button submitButton;
+    [SerializeField] Button resetButton;
     private TextMeshProUGUI iText;
     private void Awake()
     {
@@ -26,14 +27,16 @@ public class UITextHandler : MonoBehaviour
             iText.text = "not interactable";
             iText.color = Color.red;
             iText.fontStyle = FontStyles.SmallCaps;
-            button.interactable = false;
+            submitButton.interactable = false;
+            resetButton.interactable = false;
         }
         else
         {
             iText.text = "interactable";
             iText.color = Color.green;
             iText.fontStyle = FontStyles.SmallCaps;
-            button.interactable = true;
+            submitButton.interactable = true;
+            resetButton.interactable = true;
         }
         
     }
