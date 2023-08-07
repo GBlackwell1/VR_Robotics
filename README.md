@@ -6,11 +6,6 @@
 - Movement system has been improved for wrist rotation method
 - Ghost Arm activation and deactivation, only dissapears when visible robot position == ghost robots
 
-## Currently Lacking
-- Method for submitting a move to move the robot to the ghost robot's position and rotation
-- Method for resetting the robot's position
-- Right UI interactivity
-
 ## Removed
 - Oculus development package
 - Deprecated Oculus Quest 2 controller models
