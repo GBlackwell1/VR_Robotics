@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PivotController : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PivotController : MonoBehaviour
     [SerializeField] GameObject ghostArm;
     [SerializeField] GameObject ghostPivot;
     private GameObject robot;
-    private float speed = 100f;
+    private float speed = 20f;
 
     // Defaults forselection activation
     private bool isSelected = false;
@@ -27,11 +28,11 @@ public class PivotController : MonoBehaviour
         {
             // If the pivot is base rotate around the z-axis
             // if it's any other pivot, rotate around it's y-axis
-            if (ghostPivot.name == "base") 
+            if (ghostPivot.name == "base")
             {
                 ghostPivot.transform.Rotate(0f, 0f, hand.transform.rotation.x);
             }  // Add below clarifier for other objects in scene
-            else if (ghostPivot.name != "base")  
+            else if (ghostPivot.name != "base")
             {
                 ghostPivot.transform.Rotate(0f, hand.transform.rotation.x, 0f);
             }
@@ -56,8 +57,9 @@ public class PivotController : MonoBehaviour
             // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
             robot.GetComponent<RobotController>().moveReady = true;
-        } else if (isReset) { ghostArm.SetActive(false); }
-            
+        }
+        else if (isReset) { ghostArm.SetActive(false); }
+
     }
     // Only run the update function if something is selected
     public void SelectionHandler()
@@ -72,7 +74,7 @@ public class PivotController : MonoBehaviour
         // This check to see if pivot points are equal, if they aren't 
         // start a coroutine, user can currently click submit several times
         // and this negates excess runtime calculations
-        if(ghostPivot.transform.rotation != gameObject.transform.rotation)
+        if (ghostPivot.transform.rotation != gameObject.transform.rotation)
         {
             StartCoroutine(MovePivot(reset));
         }
@@ -93,20 +95,10 @@ public class PivotController : MonoBehaviour
         // continue to rotate the pivot towards that direction
         while (target.transform.rotation != gameObject.transform.rotation)
         {
-            // Rotate the position of the pivot in relation of the ghost arm
-            if (gameObject.name == "base" || gameObject.name == "hand_controller")
-            {
-                gameObject.transform.Rotate
-                    (0f, 0f,
-                    (target.transform.rotation.z - gameObject.transform.rotation.z) * Time.deltaTime * speed);
-            }
-            else
-            {
-                gameObject.transform.Rotate
-                    (0f,
-                    (target.transform.rotation.y - gameObject.transform.rotation.y) * Time.deltaTime * speed,
-                    0f);
-            }
+            float step = speed * Time.deltaTime;
+            // Rotate the position of the pivot in relation of the ghost arm OR the invisible reset positions
+            gameObject.transform.rotation =
+                   Quaternion.RotateTowards(gameObject.transform.rotation, target.transform.rotation, step);
             yield return null;
         }
         Debug.Log("CoRoutine Should stop here");
