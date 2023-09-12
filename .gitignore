@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 [Aa]ssets/[Ss]treamingAssets/aa.meta
 [Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Custom gitignores made by Gabriel Blackwell
+FirebaseCppApp-11_4_0.bundle
+google-services.json
