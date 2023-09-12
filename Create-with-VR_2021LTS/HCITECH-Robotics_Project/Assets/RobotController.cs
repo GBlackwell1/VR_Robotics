@@ -9,7 +9,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject jBox;
     [SerializeField] GameObject jEPivotTwo;
     [SerializeField] GameObject jHandControl;
-    // [SerializeField] GameObject jEPivot;
+    [SerializeField] GameObject jEPivot;
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
     public bool moveReady = true;
@@ -19,11 +19,11 @@ public class RobotController : MonoBehaviour
     public void MoveRobot()
     {
         moveReady = false;
-        jBase.GetComponent<PivotController>().TranslatePivot();
-        jBox.GetComponent<PivotController>().TranslatePivot();
-        jEPivotTwo.GetComponent<PivotController>().TranslatePivot();
-        jHandControl.GetComponent<PivotController>().TranslatePivot();
-        // jEPivot.GetComponent<PivotController>().TranslatePivot();
+        jBase.GetComponent<PivotController>().TranslatePivot(false);
+        jBox.GetComponent<PivotController>().TranslatePivot(false);
+        jEPivotTwo.GetComponent<PivotController>().TranslatePivot(false);
+        jHandControl.GetComponent<PivotController>().TranslatePivot(false);
+        jEPivot.GetComponent<PivotController>().TranslatePivot(false);
     }
     // Method for resetting the robot
     // The hardcoded true value means that it will reset to origin
@@ -33,5 +33,6 @@ public class RobotController : MonoBehaviour
         jBox.GetComponent<PivotController>().TranslatePivot(true);
         jEPivotTwo.GetComponent<PivotController>().TranslatePivot(true);
         jHandControl.GetComponent<PivotController>().TranslatePivot(true);
+        jEPivot.GetComponent<PivotController>().TranslatePivot(true);
     }
 }
