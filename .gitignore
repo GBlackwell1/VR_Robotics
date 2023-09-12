@@ -72,5 +72,9 @@ crashlytics-build.properties
 [Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Custom gitignores made by Gabriel Blackwell
+# You can find these files on CEC1081 in 1213, under Desktop/FIREBASE directory
+# Location that this bundle file needs to go in vvv
+# Reason why this file was ignored is it is too large for github
+# Create-with-VR_2021LTS\HCITECH-Robotics_Project\Assets\Firebase\Plugins\x86_64\*
 FirebaseCppApp-11_4_0.bundle
 google-services.json
