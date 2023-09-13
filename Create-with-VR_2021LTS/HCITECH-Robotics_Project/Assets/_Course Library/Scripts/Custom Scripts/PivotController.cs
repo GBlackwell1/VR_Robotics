@@ -14,6 +14,7 @@ public class PivotController : MonoBehaviour
 
     // Defaults forselection activation
     private bool isSelected = false;
+    private FirebaseScript firebase;
 
     // Default robot starting positions
     [SerializeField] GameObject ResetPostion;
@@ -21,13 +22,14 @@ public class PivotController : MonoBehaviour
     void Start()
     {
         robot = GameObject.Find("Robot Arm");
+        firebase =  GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
     }
     // Update is called once per frame
     void Update()
     {
         if (isSelected)
         {
-            Debug.Log(ghostPivot.name);
+           /* Debug.Log(ghostPivot.name);*/
             // If the pivot is base rotate around the z-axis
             // if it's any other pivot, rotate around it's y-axis
             if (ghostPivot.name == "Pivot - Upper Assembly" )
@@ -115,6 +117,10 @@ public class PivotController : MonoBehaviour
         } 
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
+        firebase.SendMovementData(gameObject.transform.localRotation.x, 
+                                  gameObject.transform.localRotation.y,
+                                  gameObject.transform.localRotation.z,
+                                  gameObject.name);
         StopCoroutine(MovePivot(reset));
     }
 }
