@@ -32,7 +32,7 @@ public class PivotController : MonoBehaviour
            /* Debug.Log(ghostPivot.name);*/
             // If the pivot is base rotate around the z-axis
             // if it's any other pivot, rotate around it's y-axis
-            if (ghostPivot.name == "Pivot - Upper Assembly" )
+            if (ghostPivot.name == "Base - Pivot" )
             {
                 ghostPivot.transform.Rotate(0f, hand.transform.rotation.x, 0f);
             }  // Add below clarifier for other objects in scene
