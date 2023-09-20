@@ -31,7 +31,6 @@ public class PivotController : MonoBehaviour
     {
         if (isSelected)
         {
-           /* Debug.Log(ghostPivot.name);*/
             // If the pivot is base rotate around 
             // if it's any other pivot, rotate around it's y-axis
             if (ghostPivot.name == "Segment 1 - Pivot" || ghostPivot.name == "Segment 2 - Pivot")
@@ -49,6 +48,8 @@ public class PivotController : MonoBehaviour
     public void GhostArmActivation()
     {
         ghostArm.SetActive(true);
+        // The user can submit a move once they've moved the ghost robot
+        robot.GetComponent<RobotController>().submitReady = true;
     }
     // If the position of the ghost arm is not the same as the visible arm
     // do not deactivate it, leave it active until the positions are the same
@@ -61,6 +62,8 @@ public class PivotController : MonoBehaviour
             // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
             robot.GetComponent<RobotController>().moveReady = true;
+            // User does not get to submit a move to the robot when the ghost arm is deactivated
+            robot.GetComponent<RobotController>().submitReady = false;
         }
         else { ghostArm.SetActive(false); }
 
@@ -98,13 +101,21 @@ public class PivotController : MonoBehaviour
             target = ghostPivot;
             GhostArmDeactivation(true);
             ResetPostion.SetActive(false);
-
+            // Once the robot is reset, no need to allow the user to reset again
+            robot.GetComponent<RobotController>().resetReady = false;
         }
         else
         {
             target = ghostPivot;
+            // Once the robot is somewhere else, it can be reset
+            robot.GetComponent<RobotController>().resetReady = true;
         }
-        
+        // Send the target data at the beginning of the movement
+        firebase.SendMovementData(target.transform.localRotation.x,
+                                  target.transform.localRotation.y,
+                                  target.transform.localRotation.z,
+                                  gameObject.name);
+
         // While the target's rotation is not the same as the current pivot's
         // continue to rotate the pivot towards that direction
         while (target.transform.localRotation != gameObject.transform.localRotation)
@@ -124,10 +135,6 @@ public class PivotController : MonoBehaviour
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);
-        firebase.SendMovementData(gameObject.transform.localRotation.x, 
-                                  gameObject.transform.localRotation.y,
-                                  gameObject.transform.localRotation.z,
-                                  gameObject.name);
         StopCoroutine(MovePivot(reset));
     }
 }

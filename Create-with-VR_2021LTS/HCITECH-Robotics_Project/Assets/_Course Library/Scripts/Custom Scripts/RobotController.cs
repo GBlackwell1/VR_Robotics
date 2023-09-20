@@ -13,7 +13,10 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject segmentFivePivot;
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
+
     public bool moveReady = true;
+    public bool submitReady = false;
+    public bool resetReady = false;
     public int numCompleted = 0;
 
     public void Start()

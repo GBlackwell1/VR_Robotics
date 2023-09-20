@@ -8919,7 +8919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 638842059}
-  robot: {fileID: 0}
+  robot: {fileID: 9072950306847877569}
   submitButton: {fileID: 642599395}
   resetButton: {fileID: 732837592}
 --- !u!1 &574454837
