@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,17 +28,30 @@ public class UITextHandler : MonoBehaviour
             iText.text = "not interactable";
             iText.color = Color.red;
             iText.fontStyle = FontStyles.SmallCaps;
-            submitButton.interactable = false;
-            resetButton.interactable = false;
         }
         else
         {
             iText.text = "interactable";
             iText.color = Color.green;
             iText.fontStyle = FontStyles.SmallCaps;
-            submitButton.interactable = true;
+        }
+
+        if (!robot.GetComponent<RobotController>().moveReady || !robot.GetComponent<RobotController>().resetReady)
+        {
+            resetButton.interactable = false;
+        }
+        else
+        {
             resetButton.interactable = true;
         }
-        
+
+        if (!robot.GetComponent<RobotController>().moveReady || !robot.GetComponent<RobotController>().submitReady)
+        {
+            submitButton.interactable = false;
+        }
+        else
+        {
+            submitButton.interactable = true;
+        }
     }
 }
