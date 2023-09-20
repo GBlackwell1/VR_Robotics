@@ -90,6 +90,8 @@ public class PivotController : MonoBehaviour
 
     IEnumerator MovePivot(bool reset)
     {
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("start_time", System.DateTime.UtcNow);
         GameObject target;
         // So check if the button wants us to reset, if so then assign target
         // To reset position else assign it to the regular ghost arm pivot
@@ -135,6 +137,8 @@ public class PivotController : MonoBehaviour
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);
+        data.Add("end_time", System.DateTime.UtcNow);
+        firebase.SendTimeData(data);
         StopCoroutine(MovePivot(reset));
     }
 }

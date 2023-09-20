@@ -103,9 +103,16 @@ public class FirebaseScript : MonoBehaviour
         else Debug.LogError("In FirebaseScript.SendMovementData, " +
             "firebase was not initialized before calling this function");
     }
-    void SendTimeData()
+    public void SendTimeData(Dictionary<string, object> data)
     {
-        if (!FLAG_READY) { }
+        if (FLAG_READY) {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            DocumentReference docRef = db.Collection("developers")
+                                         .Document("gabriel")
+                                         .Collection("movements")
+                                         .Document("most_recent_move");
+            docRef.SetAsync(data).ContinueWithOnMainThread(task => Debug.Log("Added data on time to firestore"));
+        }
         else Debug.LogError("In FirebaseScript.TimeData, " +
             "firebase was not initialized before calling this function");
     }
