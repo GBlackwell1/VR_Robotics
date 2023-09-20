@@ -14,7 +14,17 @@ public class RobotController : MonoBehaviour
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
     public bool moveReady = true;
+    public int numCompleted = 0;
 
+    public void Start()
+    {
+        Debug.Log(basePivot.GetComponent<Renderer>().bounds.center);
+        Debug.Log(segmentOnePivot.GetComponent<Renderer>().bounds.center);
+        Debug.Log(segmentTwoPivot.GetComponent<Renderer>().bounds.center);
+        Debug.Log(segmentThreePivot.GetComponent<Renderer>().bounds.center);
+        Debug.Log(segmentFourPivot.GetComponent<Renderer>().bounds.center);
+        Debug.Log(segmentFivePivot.GetComponent<Renderer>().bounds.center);
+    }
     // Call one function instead of 5 different functions
     // upon the submit move button click
     public void MoveRobot()

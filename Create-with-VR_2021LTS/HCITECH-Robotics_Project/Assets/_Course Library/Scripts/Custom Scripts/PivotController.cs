@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +22,9 @@ public class PivotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        robot = GameObject.Find("Robot Arm");
+        robot = GameObject.Find("Robot Arm - New");
         firebase =  GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
+        GhostArmDeactivation(false);
     }
     // Update is called once per frame
     void Update()
@@ -30,7 +32,7 @@ public class PivotController : MonoBehaviour
         if (isSelected)
         {
            /* Debug.Log(ghostPivot.name);*/
-            // If the pivot is base rotate around the z-axis
+            // If the pivot is base rotate around 
             // if it's any other pivot, rotate around it's y-axis
             if (ghostPivot.name == "Segment 1 - Pivot" || ghostPivot.name == "Segment 2 - Pivot")
             {
@@ -54,15 +56,13 @@ public class PivotController : MonoBehaviour
     {
         // This feature is disabled for the base since the base of both robots 
         // should always be in the same position
-        if (ghostPivot.transform.position == gameObject.transform.position
-            && ghostPivot.transform.rotation == gameObject.transform.rotation
-           && !isReset)
+        if (!isReset)
         {
             // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
             robot.GetComponent<RobotController>().moveReady = true;
         }
-        else if (isReset) { ghostArm.SetActive(false); }
+        else { ghostArm.SetActive(false); }
 
     }
     // Only run the update function if something is selected
@@ -93,12 +93,14 @@ public class PivotController : MonoBehaviour
         if (reset)
         {
             ResetPostion.SetActive(true);
-            ghostPivot.transform.position = ResetPostion.transform.position;
-            ghostPivot.transform.rotation = ResetPostion.transform.rotation;
+            ghostPivot.transform.localPosition = ResetPostion.transform.localPosition;
+            ghostPivot.transform.localRotation = ResetPostion.transform.localRotation;
             target = ghostPivot;
             GhostArmDeactivation(true);
             ResetPostion.SetActive(false);
-        } else
+
+        }
+        else
         {
             target = ghostPivot;
         }
@@ -113,10 +115,15 @@ public class PivotController : MonoBehaviour
                 Quaternion.RotateTowards(gameObject.transform.localRotation, target.transform.localRotation, step);
             robot.GetComponent<RobotController>().moveReady = false;
             yield return null;
+            if(!ghostArm.activeInHierarchy && !reset)
+            {
+                GhostArmActivation();
+            }
             
         } 
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
+        GhostArmDeactivation(false);
         firebase.SendMovementData(gameObject.transform.localRotation.x, 
                                   gameObject.transform.localRotation.y,
                                   gameObject.transform.localRotation.z,
