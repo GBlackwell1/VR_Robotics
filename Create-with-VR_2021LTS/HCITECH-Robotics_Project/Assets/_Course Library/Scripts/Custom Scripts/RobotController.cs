@@ -11,6 +11,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject segmentThreePivot;
     [SerializeField] GameObject segmentFourPivot;
     [SerializeField] GameObject segmentFivePivot;
+    [SerializeField] GameObject clawPivot;
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
 
@@ -21,12 +22,7 @@ public class RobotController : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log(basePivot.GetComponent<Renderer>().bounds.center);
-        Debug.Log(segmentOnePivot.GetComponent<Renderer>().bounds.center);
-        Debug.Log(segmentTwoPivot.GetComponent<Renderer>().bounds.center);
-        Debug.Log(segmentThreePivot.GetComponent<Renderer>().bounds.center);
-        Debug.Log(segmentFourPivot.GetComponent<Renderer>().bounds.center);
-        Debug.Log(segmentFivePivot.GetComponent<Renderer>().bounds.center);
+        
     }
     // Call one function instead of 5 different functions
     // upon the submit move button click
@@ -39,6 +35,7 @@ public class RobotController : MonoBehaviour
         segmentThreePivot.GetComponent<PivotController>().TranslatePivot(false);
         segmentFourPivot.GetComponent<PivotController>().TranslatePivot(false);
         segmentFivePivot.GetComponent<PivotController>().TranslatePivot(false);
+        clawPivot.GetComponent<ClawController>().TranslatePivot(false);
     }
     // Method for resetting the robot
     // The hardcoded true value means that it will reset to origin
@@ -50,5 +47,6 @@ public class RobotController : MonoBehaviour
         segmentThreePivot.GetComponent<PivotController>().TranslatePivot(true);
         segmentFourPivot.GetComponent<PivotController>().TranslatePivot(true);
         segmentFivePivot.GetComponent<PivotController>().TranslatePivot(true);
+        clawPivot.GetComponent<ClawController>().TranslatePivot(true);
     }
 }
