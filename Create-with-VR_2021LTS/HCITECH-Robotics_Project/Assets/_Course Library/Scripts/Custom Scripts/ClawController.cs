@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ClawController : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class ClawController : MonoBehaviour
     {
         if (isSelected)
         {
+            // TODO: disable the submit move button
             if(ghostFinger1.transform.localEulerAngles.z < maxAngle)
             {
                 ghostFinger1.transform.Rotate(0f, 0f, speed * Time.deltaTime);
@@ -46,15 +48,16 @@ public class ClawController : MonoBehaviour
                 ghostFinger3.transform.Rotate(0f, 0f, speed * Time.deltaTime);
             }
             
-        } else
+        } else  // FIXME: I believe this is the problem, it seems to me also that 
+                // The claw is acting as always selected
         {
-            if(ghostFinger1.transform.localEulerAngles.z >= minAngle)
-            {
-                ghostFinger1.transform.Rotate(0f, 0f, speed* -Time.deltaTime);
-                ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
-                ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+            if (ghostFinger1.transform.localEulerAngles.z >= minAngle)
+                {
+                    ghostFinger1.transform.Rotate(0f, 0f, speed* -Time.deltaTime);
+                    ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                    ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                }
             }
-        }
     }
 
     // Enable and disable the view of the GhostArm
@@ -62,7 +65,6 @@ public class ClawController : MonoBehaviour
     {
         ghostArm.SetActive(true);
         // The user can submit a move once they've moved the ghost robot
-        robot.GetComponent<RobotController>().submitReady = true;
     }
 
     // If the position of the ghost arm is not the same as the visible arm
@@ -150,7 +152,9 @@ public class ClawController : MonoBehaviour
         */
         // While the target's rotation is not the same as the current pivot's
         // continue to rotate the pivot towards that direction
-        while (target1.transform.localRotation != finger1.transform.localRotation)
+        while (target1.transform.localRotation != finger1.transform.localRotation 
+    /*        || target2.transform.localRotation != finger2.transform.localRotation
+            || target3.transform.localRotation != finger3.transform.localRotation*/)
         {
             float step = speed * Time.deltaTime;
             // Rotate the position of the pivot in relation of the ghost arm OR the invisible reset positions
