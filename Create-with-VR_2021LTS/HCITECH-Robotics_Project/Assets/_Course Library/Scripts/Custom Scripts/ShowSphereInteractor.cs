@@ -10,6 +10,7 @@ public class ShowSphereInteractor : MonoBehaviour
     {
         if(other.gameObject.tag == "Hand") {
             gameObject.GetComponent<MeshRenderer>().enabled = true;
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -17,6 +18,7 @@ public class ShowSphereInteractor : MonoBehaviour
         if (other.gameObject.tag == "Hand")
         {
             gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
