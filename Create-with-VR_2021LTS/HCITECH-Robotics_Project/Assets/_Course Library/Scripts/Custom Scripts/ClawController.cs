@@ -9,13 +9,10 @@ public class ClawController : MonoBehaviour
     [SerializeField] GameObject ghostArm;
     [SerializeField] GameObject finger1;
     [SerializeField] GameObject ghostFinger1;
-    [SerializeField] GameObject resetFinger1;
     [SerializeField] GameObject finger2;
     [SerializeField] GameObject ghostFinger2;
-    [SerializeField] GameObject resetFinger2;
     [SerializeField] GameObject finger3;
     [SerializeField] GameObject ghostFinger3;
-    [SerializeField] GameObject resetFinger3;
     private GameObject robot;
     private float speed = 20f;
     private float maxAngleDelta = 59f;
@@ -24,6 +21,8 @@ public class ClawController : MonoBehaviour
 
     // Defaults forselection activation
     private bool isSelected = false;
+    private bool isClosed = false;
+    private bool isMoving = false;
     private FirebaseScript firebase;
 
     // Start is called before the first frame update
@@ -43,21 +42,41 @@ public class ClawController : MonoBehaviour
             // TODO: disable the submit move button
             if(ghostFinger1.transform.localEulerAngles.z < maxAngle)
             {
+                isMoving = true;
                 ghostFinger1.transform.Rotate(0f, 0f, speed * Time.deltaTime);
                 ghostFinger2.transform.Rotate(0f, 0f, speed * Time.deltaTime);
                 ghostFinger3.transform.Rotate(0f, 0f, speed * Time.deltaTime);
+                robot.GetComponent<RobotController>().moveReady = false;
+            } else
+            {
+                if(isMoving)
+                {
+                    robot.GetComponent<RobotController>().moveReady = true;
+                    isMoving = false;
+                }
+                isClosed = true;
             }
             
         } else  // FIXME: I believe this is the problem, it seems to me also that 
                 // The claw is acting as always selected
         {
             if (ghostFinger1.transform.localEulerAngles.z >= minAngle)
+            {
+                isMoving= true;
+                ghostFinger1.transform.Rotate(0f, 0f, speed* -Time.deltaTime);
+                ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                robot.GetComponent<RobotController>().moveReady = false;
+            } else
+            {
+                if (isMoving)
                 {
-                    ghostFinger1.transform.Rotate(0f, 0f, speed* -Time.deltaTime);
-                    ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
-                    ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                    robot.GetComponent<RobotController>().moveReady = true;
+                    isMoving = false;
                 }
+                isClosed = false;
             }
+        }
     }
 
     // Enable and disable the view of the GhostArm
@@ -65,6 +84,7 @@ public class ClawController : MonoBehaviour
     {
         ghostArm.SetActive(true);
         // The user can submit a move once they've moved the ghost robot
+        robot.GetComponent<RobotController>().submitReady = true;
     }
 
     // If the position of the ghost arm is not the same as the visible arm
@@ -117,23 +137,28 @@ public class ClawController : MonoBehaviour
         // To reset position else assign it to the regular ghost arm pivot
         if (reset)
         {
-            resetFinger1.SetActive(true);
-            resetFinger2.SetActive(true);
-            resetFinger3.SetActive(true);
-            ghostFinger1.transform.localPosition = resetFinger1.transform.localPosition;
-            ghostFinger1.transform.localRotation = resetFinger1.transform.localRotation;
-            target1 = ghostFinger1;
-            ghostFinger2.transform.localPosition = resetFinger2.transform.localPosition;
-            ghostFinger2.transform.localRotation = resetFinger2.transform.localRotation;
-            target2 = ghostFinger2;
-            ghostFinger3.transform.localPosition = resetFinger3.transform.localPosition;
-            ghostFinger3.transform.localRotation = resetFinger3.transform.localRotation;
-            target3 = ghostFinger3;
-            GhostArmDeactivation(true);
-            resetFinger1.SetActive(false);
-            resetFinger2.SetActive(false);
-            resetFinger3.SetActive(false);
-            // Once the robot is reset, no need to allow the user to reset again
+            if(isClosed)
+            {
+                GhostArmDeactivation(true);
+                robot.GetComponent<RobotController>().moveReady = false;
+                while (finger1.transform.localEulerAngles.z >= minAngle)
+                {
+                    finger1.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                    finger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                    finger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
+                    robot.GetComponent<RobotController>().moveReady = false;
+                    yield return null;
+                }
+                isClosed = false;
+                GhostArmActivation();
+                SelectionHandler();
+                ghostFinger1.transform.localPosition = finger1.transform.localPosition;
+                ghostFinger1.transform.localRotation = finger1.transform.localRotation;
+                ghostFinger2.transform.localPosition = finger2.transform.localPosition;
+                ghostFinger2.transform.localRotation = finger2.transform.localRotation;
+                ghostFinger3.transform.localPosition = finger3.transform.localPosition;
+                ghostFinger3.transform.localRotation = finger3.transform.localRotation;
+            }
             robot.GetComponent<RobotController>().resetReady = false;
         }
         else
@@ -143,34 +168,25 @@ public class ClawController : MonoBehaviour
             target3 = ghostFinger3;
             // Once the robot is somewhere else, it can be reset
             robot.GetComponent<RobotController>().resetReady = true;
-        }
-        // Send the target data at the beginning of the movement
-        /*firebase.SendMovementData(target.transform.localRotation.x,
-                                  target.transform.localRotation.y,
-                                  target.transform.localRotation.z,
-                                  gameObject.name);
-        */
-        // While the target's rotation is not the same as the current pivot's
-        // continue to rotate the pivot towards that direction
-        while (target1.transform.localRotation != finger1.transform.localRotation 
-    /*        || target2.transform.localRotation != finger2.transform.localRotation
-            || target3.transform.localRotation != finger3.transform.localRotation*/)
-        {
-            float step = speed * Time.deltaTime;
-            // Rotate the position of the pivot in relation of the ghost arm OR the invisible reset positions
-            finger1.transform.localRotation =
-                Quaternion.RotateTowards(finger1.transform.localRotation, target1.transform.localRotation, step);
-            finger2.transform.localRotation =
-                Quaternion.RotateTowards(finger2.transform.localRotation, target2.transform.localRotation, step);
-            finger3.transform.localRotation =
-                Quaternion.RotateTowards(finger3.transform.localRotation, target3.transform.localRotation, step);
-            robot.GetComponent<RobotController>().moveReady = false;
-            yield return null;
-            if (!ghostArm.activeInHierarchy && !reset)
+            // While the target's rotation is not the same as the current pivot's
+            // continue to rotate the pivot towards that direction
+            while (target1.transform.localRotation != finger1.transform.localRotation)
             {
-                GhostArmActivation();
-            }
+                float step = speed * Time.deltaTime;
+                finger1.transform.localRotation =
+                    Quaternion.RotateTowards(finger1.transform.localRotation, target1.transform.localRotation, step);
+                finger2.transform.localRotation =
+                    Quaternion.RotateTowards(finger2.transform.localRotation, target2.transform.localRotation, step);
+                finger3.transform.localRotation =
+                    Quaternion.RotateTowards(finger3.transform.localRotation, target3.transform.localRotation, step);
+                robot.GetComponent<RobotController>().moveReady = false;
+                yield return null;
+                if (!ghostArm.activeInHierarchy && !reset)
+                {
+                    GhostArmActivation();
+                }
 
+            }
         }
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
