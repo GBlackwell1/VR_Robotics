@@ -12,7 +12,7 @@ public class PivotController : MonoBehaviour
     [SerializeField] GameObject ghostPivot;
     private GameObject robot;
     private float speed = 20f;
-
+    private float rotationModifier;
     // Defaults forselection activation
     private bool isSelected = false;
     private FirebaseScript firebase;
@@ -29,17 +29,18 @@ public class PivotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rotationModifier = GameObject.Find("ROBOTMANAGER").GetComponent<RobotManager>().GetSpeedModifier();
         if (isSelected)
         {
             // If the pivot is base rotate around 
             // if it's any other pivot, rotate around it's y-axis
             if (ghostPivot.name == "Segment 1 - Pivot" || ghostPivot.name == "Segment 2 - Pivot")
             {
-                ghostPivot.transform.Rotate(hand.transform.rotation.x, 0f, 0f);
+                ghostPivot.transform.Rotate(hand.transform.rotation.x*rotationModifier, 0f, 0f);
             }  // Add below clarifier for other objects in scene
             else
             {
-                ghostPivot.transform.Rotate(0f, 0f, hand.transform.rotation.x);
+                ghostPivot.transform.Rotate(0f, 0f, hand.transform.rotation.x*rotationModifier);
             }
         }
     }
