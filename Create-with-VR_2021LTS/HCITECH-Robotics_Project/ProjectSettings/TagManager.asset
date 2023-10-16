@@ -8,6 +8,7 @@ TagManager:
   - Box
   - Hand
   - Ghost
+  - Joint Collider
   layers:
   - Default
   - TransparentFX
