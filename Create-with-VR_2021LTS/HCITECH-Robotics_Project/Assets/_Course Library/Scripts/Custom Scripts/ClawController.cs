@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class ClawController : MonoBehaviour
     private bool isSelected = false;
     private bool isClosed = false;
     private bool isMoving = false;
+    private String start = "open";
     private FirebaseScript firebase;
 
     // Start is called before the first frame update
@@ -39,7 +41,7 @@ public class ClawController : MonoBehaviour
     {
         if (isSelected)
         {
-            // TODO: disable the submit move button
+            // If the claw is open and has been selected, close it
             if(ghostFinger1.transform.localEulerAngles.z < maxAngle)
             {
                 isMoving = true;
@@ -47,19 +49,26 @@ public class ClawController : MonoBehaviour
                 ghostFinger2.transform.Rotate(0f, 0f, speed * Time.deltaTime);
                 ghostFinger3.transform.Rotate(0f, 0f, speed * Time.deltaTime);
                 robot.GetComponent<RobotController>().moveReady = false;
-            } else
+            } else // If the claw is closed and has been selected, do nothing
             {
                 if(isMoving)
                 {
+                    // Before the claw enables movement, it checks to make sure it is in a new position,
+                    // or that some other part of the robot has been moved
+                    if(start == "closed" && !robot.GetComponent<RobotController>().nonClawMove)
+                    {
+                        robot.GetComponent<RobotController>().submitReady = false;
+                        GhostArmDeactivation(false);
+                    }
                     robot.GetComponent<RobotController>().moveReady = true;
                     isMoving = false;
                 }
                 isClosed = true;
             }
             
-        } else  // FIXME: I believe this is the problem, it seems to me also that 
-                // The claw is acting as always selected
+        } else
         {
+            // If the claw is closed and has not been selected, open it
             if (ghostFinger1.transform.localEulerAngles.z >= minAngle)
             {
                 isMoving= true;
@@ -67,10 +76,18 @@ public class ClawController : MonoBehaviour
                 ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
                 ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
                 robot.GetComponent<RobotController>().moveReady = false;
-            } else
+            }
+            else // If the claw is open and has not been selected, do nothing
             {
                 if (isMoving)
                 {
+                    // Before the claw enables movement, it checks to make sure it is in a new position,
+                    // or that some other part of the robot has been moved
+                    if (start == "open" && !robot.GetComponent<RobotController>().nonClawMove)
+                    {
+                        robot.GetComponent<RobotController>().submitReady = false;
+                        GhostArmDeactivation(false);
+                    }
                     robot.GetComponent<RobotController>().moveReady = true;
                     isMoving = false;
                 }
@@ -160,6 +177,7 @@ public class ClawController : MonoBehaviour
                 ghostFinger3.transform.localRotation = finger3.transform.localRotation;
             }
             robot.GetComponent<RobotController>().resetReady = false;
+            start = "open";
         }
         else
         {
@@ -187,9 +205,18 @@ public class ClawController : MonoBehaviour
                 }
 
             }
+            if(isClosed)
+            {
+                start = "closed";
+            } else
+            {
+                start = "open";
+            }
+            
         }
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
+        robot.GetComponent<RobotController>().nonClawMove = false;
         GhostArmDeactivation(false);
         data.Add("end_time", System.DateTime.UtcNow);
         firebase.SendTimeData(data);
