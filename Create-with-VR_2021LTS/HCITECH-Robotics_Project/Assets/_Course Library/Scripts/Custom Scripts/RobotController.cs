@@ -18,7 +18,7 @@ public class RobotController : MonoBehaviour
     public bool moveReady = true;
     public bool submitReady = false;
     public bool resetReady = false;
-    public int numCompleted = 0;
+    public bool nonClawMove = false;
 
     public void Start()
     {

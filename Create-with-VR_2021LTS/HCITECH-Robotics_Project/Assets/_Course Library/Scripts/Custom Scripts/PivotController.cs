@@ -73,6 +73,8 @@ public class PivotController : MonoBehaviour
     public void SelectionHandler()
     {
         isSelected = !isSelected;
+        //If a part is selected, the arm knows that a move has occured
+        robot.GetComponent<RobotController>().nonClawMove = true;
     }
     // Method that's called when needed to move the robot arms' pivots
     // boolean here determines whether or not the submit move button
