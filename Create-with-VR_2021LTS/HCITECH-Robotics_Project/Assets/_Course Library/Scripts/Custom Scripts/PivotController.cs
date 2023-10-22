@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PivotController : MonoBehaviour
 {
+    private Dictionary<string, Vector3> reset_positions = new Dictionary<string, Vector3>();
+    private Dictionary<string, Vector3> reset_locations = new Dictionary<string, Vector3>();
     [SerializeField] GameObject hand;
     [SerializeField] GameObject ghostArm;
     [SerializeField] GameObject ghostPivot;
@@ -16,14 +18,16 @@ public class PivotController : MonoBehaviour
     // Defaults forselection activation
     private bool isSelected = false;
     private FirebaseScript firebase;
+    private RobotManager robotManager;
 
     // Default robot starting positions
-    [SerializeField] GameObject ResetPostion;
+    // [SerializeField] GameObject ResetPostion;
     // Start is called before the first frame update
     void Start()
     {
         robot = GameObject.Find("Robot Arm - New");
         firebase =  GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
+        robotManager = GameObject.Find("ROBOTMANAGER").GetComponent<RobotManager>();
         GhostArmDeactivation(false);
     }
     // Update is called once per frame
@@ -100,12 +104,12 @@ public class PivotController : MonoBehaviour
         // To reset position else assign it to the regular ghost arm pivot
         if (reset)
         {
-            ResetPostion.SetActive(true);
-            ghostPivot.transform.localPosition = ResetPostion.transform.localPosition;
-            ghostPivot.transform.localRotation = ResetPostion.transform.localRotation;
+            // ResetPostion.SetActive(true);
+            ghostPivot.transform.localPosition = robotManager.reset_positions[gameObject.name];
+            ghostPivot.transform.localRotation = robotManager.reset_rotations[gameObject.name];
             target = ghostPivot;
             GhostArmDeactivation(true);
-            ResetPostion.SetActive(false);
+            // ResetPostion.SetActive(false);
             // Once the robot is reset, no need to allow the user to reset again
             robot.GetComponent<RobotController>().resetReady = false;
         }
