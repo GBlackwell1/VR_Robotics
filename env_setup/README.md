@@ -1,5 +1,8 @@
-<p align="center"><img src="images/warehouse.gif"/></p>
 
+<p align="center"><img src="images/warehouse.gif"/></p>
+# From Gabriel Blackwell
+This README.md refers to the documentation for Unity Robotics Hub, take a look at the ROS–Unity Integration to check it out! The biggest difference between their code and ours is I've included only the bare necessities needed, more may be added later, and a custom Dockerfile suited for our needs.
+ 
 # Unity Robotics Hub
 
 <!-- [![Version](https://img.shields.io/github/v/tag/Unity-Technologies/Unity-Robotics-Hub)](https://github.com/Unity-Technologies/Unity-Robotics-Hub/releases) -->
