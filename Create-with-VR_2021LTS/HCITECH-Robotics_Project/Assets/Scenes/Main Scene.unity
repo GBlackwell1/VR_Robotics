@@ -1704,7 +1704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122995886}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment3 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1740,7 +1740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 126813282}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 4 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2706,7 +2706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 160130310}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment3 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2742,7 +2742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168567968}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Claw - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3977,7 +3977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297561904}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment5 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7013,7 +7013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523995809}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Base - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7388,7 +7388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580328575}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 3 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7919,7 +7919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 617907176}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Claw - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8775,7 +8775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 661414913}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 5 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8812,7 +8812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 672807674}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Base - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10288,7 +10288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 757868166}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 3 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10490,7 +10490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 801929012}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 5 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12157,7 +12157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 988787871}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 4 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12827,7 +12827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1034957853}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment1 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13834,7 +13834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164004195}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 1 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14201,7 +14201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224495513}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment2 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14817,7 +14817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1275376782}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment1 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15664,7 +15664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1320674179}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 1 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16228,7 +16228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1385406324}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Base - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16550,7 +16550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1437286267}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 2 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17266,7 +17266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512578866}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment4 - Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19027,6 +19027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1641134907}
+  - component: {fileID: 1641134908}
   m_Layer: 0
   m_Name: Ghost Arm - New
   m_TagString: Untagged
@@ -19050,6 +19051,53 @@ Transform:
   m_Father: {fileID: 418645280}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
+--- !u!114 &1641134908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641134906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c10055971dd144d91ae5830afaa782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostModels:
+  - {fileID: 672807673}
+  - {fileID: 523995808}
+  - {fileID: 1164004194}
+  - {fileID: 1275376781}
+  - {fileID: 1437286266}
+  - {fileID: 1964261097}
+  - {fileID: 580328574}
+  - {fileID: 757868165}
+  - {fileID: 126813281}
+  - {fileID: 988787870}
+  - {fileID: 661414912}
+  - {fileID: 801929011}
+  - {fileID: 617907175}
+  - {fileID: 1530031033}
+  - {fileID: 1634839743}
+  - {fileID: 1776275872}
+  models:
+  - {fileID: 1385406323}
+  - {fileID: 1664875865}
+  - {fileID: 1320674178}
+  - {fileID: 1034957852}
+  - {fileID: 1224495512}
+  - {fileID: 2008533658}
+  - {fileID: 122995885}
+  - {fileID: 160130309}
+  - {fileID: 1512578865}
+  - {fileID: 1789411931}
+  - {fileID: 297561903}
+  - {fileID: 1999386537}
+  - {fileID: 168567967}
+  - {fileID: 1645747944}
+  - {fileID: 626980082}
+  - {fileID: 1073680334}
+  checkVisibility: 0
 --- !u!1 &1645747944
 GameObject:
   m_ObjectHideFlags: 0
@@ -19104,7 +19152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1664875866}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Base - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20394,7 +20442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789411932}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment4 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22481,7 +22529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1964261098}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment 2 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22517,7 +22565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999386538}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment5 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22801,7 +22849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2008533659}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Segment2 - PivotModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
