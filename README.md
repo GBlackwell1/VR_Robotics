@@ -2,6 +2,10 @@
 
 # Research Resources
 [Port forwarding](https://jwstanly.com/blog/article/Port+Forwarding+WSL+2+to+Your+LAN) - In progress
+## Potential HTTPs interface
+[Rosbridge](http://wiki.ros.org/rosbridge_suite) - In progress
+[Roslibjs](wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) - In progress
+[Unity Web Request](https://docs.unity3d.com/Manual/UnityWebRequest-HLAPI.html) - In progress
 
 # ROS Installation
 To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
