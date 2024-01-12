@@ -1,8 +1,8 @@
 # VR_Robotics
 
 ## Documentation for currently used resources
-[Rosbridge](http://wiki.ros.org/rosbridge_suite) - In progress <br />
-[Roslibjs](wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) - In progress <br />
+[Rosbridge](http://wiki.ros.org/rosbridge_suite) - Initial work done <br />
+[Roslibjs](wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) - Initial work done <br />
 [Unity Web Request](https://docs.unity3d.com/Manual/UnityWebRequest-HLAPI.html) - Initial work done <br />
 
 # ROS Installation
