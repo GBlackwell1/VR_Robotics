@@ -144,8 +144,7 @@ public class PivotController : MonoBehaviour
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);
-        data.Add("end_time", System.DateTime.UtcNow);
-        firebase.SendTimeData(data);
+        firebase.SendTimeData(System.DateTime.UtcNow);
         StopCoroutine(MovePivot(reset));
     }
 }
