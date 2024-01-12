@@ -1,25 +1,18 @@
 # VR_Robotics
 
-# Research Resources
-[Port forwarding](https://jwstanly.com/blog/article/Port+Forwarding+WSL+2+to+Your+LAN) - In progress
-## Potential HTTPs interface
+## Documentation for currently used resources
 [Rosbridge](http://wiki.ros.org/rosbridge_suite) - In progress <br />
 [Roslibjs](wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) - In progress <br />
 [Unity Web Request](https://docs.unity3d.com/Manual/UnityWebRequest-HLAPI.html) - Initial work done <br />
 
 # ROS Installation
-~~To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
-For details on the installation of ROS-noetic, please refer to ROS' official [documentation](http://wiki.ros.org/Installation/Ubuntu).~~
-## Environment Setup
-~~For ease of use we're using docker to make it easier to setup your environment. Open the env_setup folder in the project and navigate to <b>ros_unity_integration</b>. Here you will find everything that has to do with ROS and Unity packages. <br/><br/> Once ROS-noetic has been installed, you should have docker on your system, run ``` docker ``` and see if you get output. If you recieve an error, view ROS-noetic's documentation to ensure docker is installed. Once you have output run ``` docker pull ros:noetic-robot && docker pull ros:noetic-ros-base ```. This will make sure you have the correct ROS image for our docker container.~~
-<br/><br/>
-~~Once pulled you can now run the command ``` docker build -t noetic -f ros_docker/Dockerfile . ``` to build your container, (don't worry this step might take some time, ensure that you have a reliable internet connection). Once built, run ``` docker run -it --rm -p 10000:10000 noetic /bin/bash ``` to enter into your container, you should now be put into a new shell, go ahead and run ``` source devel/setup.bash ``` to source your new environment then you're good, congrats!~~
-## For WSL
-~~Things work a little differently for WSL, make sure you have WSL2 installed and you are running the correct version of Ubuntu-20.04 using ``` wsl -l ```. Continue with the ROS installation as normal and then you might have difficulty running ``` docker build -t noetic -f ros_docker/Dockerfile . ```. A common error is "symbolic linking", this just means that your docker has gotten all wonky, run the two commands ``` docker system prune ``` and ``` docker image prune ``` to clear unecessary items. <br /><br /> Once you have done that, you'll need to start docker, as WSL2 does not manually start, you need to install a command to start docker, ``` apt install docker.io ```. Then in your terminal run ``` sudo dockerd ``` to launch docker, this will run in the foreground so you must start a new terminal in WSL2 to run ``` docker build -t noetic -f ros_docker/Dockerfile . ```, then continue as normal.~~
-## Container Configuration
-~~Unfortunately there's still a couple steps left to complete, once in your container, you should have python2.7 and python3.8 installed, run both ``` python --version ``` and ``` python3 --version ``` to confirm both are installed. <br /><br />
-There will probably be a couple packages missing for both ROS packages, since these are reliant on python and not ROS, additional steps are required. The ros_tcp_endpoint package expects a python version 2.X and kinova-ros expects 3.X, so now lets install some python modules using python's pip installer. To get this installer, run ``` apt install curl ```, this will help to download pip from online. <br /><br />
-Run this command with curl: ``` curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py ``` to get python3's package manger "pip3", then with python3, run ``` python3 get-pip.py ``` to install the manager. For python2, similarly run ``` curl -sSL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py  ``` to get it's manager then run ``` python get-pip.py ``` to install its manager. <br /><br /> To get the final remaining dependencies, run ``` python2.7 -m pip install PyYAML ``` and ``` python2.7 -m pip install rospkg ```. These commands will install the missing dependencies that ros_tcp_endpoint expects. For the final bit, now ROS noetic expects to call python and recienve python3.X but instead it recieves python2.X, we must link python3 to python by running the command: ``` sudo ln -sf /usr/bin/python3 /usr/local/bin/python ```. Since at this point we are accessing the arm via usb connection, run the command ``` sudo cp kinova_driver/udev/10-kinova-arm.rules /etc/udev/rules.d/ ``` to have the ability to connect to the robot via usb. <br /><br /> Congrats! You've now setup your container fully and are ready to run code! (I will make a shell script soon to make the process a little easier).~~
+To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
+For details on the installation of ROS-noetic, please refer to ROS' official [documentation](http://wiki.ros.org/Installation/Ubuntu).
+## Backend setup
+We are using 3 key technologies, Unity Web Requests, which can send send forms to an active server, Rosbridge, which creates a web socket that can recieve ros commands in the form of JSON, and Roslibjs, a way to 
+interface with the previously mentioned websocket server. Using a custom built node server, we can handle and do all these requests ourselves. To make sure you are setup, ensure that you have node installed, to satisfy requirements
+that the server needs to run, install ```express roslib``` using ```npm i``` and make sure the ros packages for both ```rosbridge roslibjs``` are installed via ros. After that, start up both the websocket for rosbridge, the server 
+via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected.
 
 ## Other Information
 
