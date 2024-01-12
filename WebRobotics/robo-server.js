@@ -1,4 +1,5 @@
 // Load http module that is standard with all Node installations
+const ROSLIB = require('roslib');
 const express = require("express");
 const bodyparser = require('body-parser');
 const app = express();
@@ -17,9 +18,23 @@ let color_yell = `\x1b[33m`; let color_grn = `\x1b[32m`;
 let node1; let node2; let node3; 
 let node4; let node5; let node6;
 let pos_x; let pos_y; let pos_z;
+// Handle ros connection to rosbridge websocket
+var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+});
+ros.on('connection', function() {
+    console.log('Connected to websocket server.');
+})
+ros.on('error', function(error) {
+    console.log('Error connecting to websocket server: ', error);
+})
+ros.on('close', function() {
+    console.log('Connection to websocket server closed.');
+})
 // Handle requests
 app.get('/', (req, res) => {
-    res.send('Root');
+    // here root should load the html page
+    res.send('root');
 })
 app.get('/get', (req, res) => {
     console.log("Get page requested")

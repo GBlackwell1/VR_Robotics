@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html lang="en" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<!-- So devs for robotwebtools f-ed up and dont know how to get their domain back 
+			 therefore we must have the local versions of the code they're requesting '-->
+		<script type="text/javascript" src="../external_scripts/roslibjs/src/RosLib.js"></script>
+		<script>
+			var ros = new ROSLIB.Ros({
+				url: 'ws://localhost:9090'
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Current Data:</h1>
+	</body>
+</html> 
