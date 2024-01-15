@@ -29,7 +29,13 @@ ros.on('error', function(error) {
     console.log('Error connecting to websocket server: ', error);
 })
 ros.on('close', function() {
-    console.log('Connection to websocket server closed.');
+    console.log('Connection to websocket server closed')
+})
+// Create ROS topics
+var sendData = new ROSLIB.Topic({
+    ros: ros,
+    name: '/unity_incoming',
+    messageType: 'std_msgs/String'
 })
 // Handle requests
 app.get('/', (req, res) => {
@@ -46,6 +52,12 @@ app.post('/get', (req, res) => {
         // unity succesfully. I'm sure there's another way to do this 
         // but for testing purposes this should work fine 
         console.log(`${color_grn}${req.body.Connection}: Connection established with UNITY${color_norm}`);
+        console.log('Now sending data to rosbridge...');
+        var pubString = new ROSLIB.Message({
+            data: `SUCCESFULLY SENT the boolean : ${req.body.Connection} from Unity!!`,
+        });
+        sendData.publish(pubString);
+
     }
     res.status(201).send("POST data");
 })
