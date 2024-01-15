@@ -15,6 +15,7 @@ that the server needs to run, install ```express roslib``` using ```npm i``` and
 via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected.
 
 ## Other Information
+[Demonstration on how the backend works](https://youtu.be/JW2PU8VDYow)
 
 ## Running the project on CEC1081
 Always make sure Oculus is launched on the computer to ensure a wired connection. <br />
