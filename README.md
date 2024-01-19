@@ -9,10 +9,35 @@
 To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
 For details on the installation of ROS-noetic, please refer to ROS' official [documentation](http://wiki.ros.org/Installation/Ubuntu).
 ## Backend setup
-We are using 3 key technologies, Unity Web Requests, which can send send forms to an active server, Rosbridge, which creates a web socket that can recieve ros commands in the form of JSON, and Roslibjs, a way to 
-interface with the previously mentioned websocket server. Using a custom built node server, we can handle and do all these requests ourselves. To make sure you are setup, ensure that you have node installed, to satisfy requirements
-that the server needs to run, install ```express roslib``` using ```npm i``` and make sure the ros packages for both ```rosbridge roslibjs``` are installed via ros. After that, start up both the websocket for rosbridge, the server 
-via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected.
+We are using 3 key technologies, Unity Web Requests, which can send send forms to an active server, Rosbridge, which creates a web socket that can recieve ros commands in the form of JSON, and Roslibjs, a way to interface with the previously mentioned websocket server. Using a custom built node server, we can handle and do all these requests ourselves. <br /><br />
+To make sure you are setup, ensure that you have node installed. 
+To satisfy requirements that the server needs to run using 
+```
+npm i express  
+npm i roslib
+```
+Running both of these will add some of the packages need for both ros and the server to run. The final package that needs to be added is the rosbridge which is not able to be installed via npm. To install, run
+```
+sudo apt-get install ros-noetic-rosbridge-server
+```
+After that, start up both the websocket for rosbridge, the server 
+via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected. Echoing the newly created rostopic and restarting Unity will yield output in the terminal that is echoing the topic, if done correctly. 
+
+## WSL - Access to USB ports
+By default, ports are not accessible between WSL2 and Windows. A third party software is needed to forward ports and bind them to WSL to allow access. Install the .msi installer on windows by navigating to this link [here](https://github.com/dorssel/usbipd-win/releases). Once installed, you need to install the appropriate tools on WSL, run both of these commands: 
+```
+sudo apt install linux-tools-generic hwdata
+sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+```
+To install the appropriate software for WSL.<br />
+### ONCE INSTALLED, RESTART YOUR DEVICE OR ELSE THE FUNCTIONALITY WILL NOT WORK
+Next, in powershell, list the usb devices by running ```usbipd list```, identify the exact device you want to bind and note its bus-id, next run the command ```usbipd bind -b <your_bus-id_here>```. <br />
+This will then allow you to attach your device to WSL by running the command:
+```
+usbipd attach --wsl -b <your_bus-id_here>
+```
+Finally, open WSL and run ```lsusb``` to list all usb devices available to WSL. You should now see your usb device that you have attached to WSL. <br />
+<b>NOTE:</b> keep in mind that binding and attaching a usb device to WSL means that windows no longer has access to that device. To give windows access back to that usb, you need to unbind from WSL.
 
 ## Other Information
 [Demonstration on how the backend works](https://youtu.be/JW2PU8VDYow)
