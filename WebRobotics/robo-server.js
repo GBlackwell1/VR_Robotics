@@ -5,7 +5,7 @@ const bodyparser = require('body-parser');
 const app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 // name and port
-const host = 'localhost';
+const host = '0.0.0.0';
 const port = '8000';
 // COLORS
 // I found it hard and cluttered to read logs, so i wanted to have colors for messages
