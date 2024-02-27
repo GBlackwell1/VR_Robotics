@@ -54,11 +54,20 @@ app.post('/get', (req, res) => {
         console.log(`${color_grn}${req.body.Connection}: Connection established with UNITY${color_norm}`);
         console.log('Now sending data to rosbridge...');
         var pubString = new ROSLIB.Message({
-            data: `SUCCESFULLY SENT the boolean : ${req.body.Connection} from Unity!!`,
+            data: `Connection to Unity : ${req.body.Connection}`,
         });
         sendData.publish(pubString);
-
-    }
+	console.log("Connection data sent.");
+    } else {
+    	// We've recieved actual movement data
+	console.log(`${color_grn}Movement recieved from UNITY${color_norm}`);
+	// Send as a string and add colons to make it easily parsed
+	var pubMove = new ROSLIB.Message({ 
+		data: `${req.body.joint1}:${req.body.joint2}:${req.body.joint3}:${req.body.joint4}:${req.body.joint5}:${req.body.joint6}`
+	});
+	sendData.publish(pubMove);
+	console.log(`Data sent was: `+`${req.body.joint1}:${req.body.joint2}:${req.body.joint3}:${req.body.joint4}:${req.body.joint5}:${req.body.joint6}`);
+    }	
     res.status(201).send("POST data");
 })
 app.put('/get', (req, res) => {
