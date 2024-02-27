@@ -8,10 +8,10 @@ using JetBrains.Annotations;
 using Firebase.Storage;
 using Firebase.Firestore;
 using Firebase.Extensions;
-
+ 
 public class FirebaseScript : MonoBehaviour
 {
-    private static string SERVER_NAME = "http://localhost:8000/get";
+    private static string SERVER_NAME = "http://192.168.56.102:8000/get";
     public static bool FLAG_READY = false;
     void Awake()
     {
@@ -39,6 +39,7 @@ public class FirebaseScript : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ConnectionEstablish());
+        StartCoroutine(TestingJointAction());
     }
     /*
      * description: Currently being used to send some initial test data, check
@@ -52,7 +53,33 @@ public class FirebaseScript : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, form);
         yield return www.SendWebRequest();
 
-        if(www.result != UnityWebRequest.Result.Success)
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Succesfully established connection to " + SERVER_NAME);
+        }
+    }
+    IEnumerator TestingJointAction()
+    {
+        WWWForm form = new WWWForm();
+/*
+        WWWForm haltMovement = new WWWForm();
+        haltMovement.AddField("joint1", 0); haltMovement.AddField("joint2", 0);
+        haltMovement.AddField("joint3", 0); haltMovement.AddField("joint4", 0);
+        haltMovement.AddField("joint5", 0); haltMovement.AddField("joint6", 0);*/
+        // Send some basic data
+        form.AddField("joint1", 280); form.AddField("joint2", 180);
+        form.AddField("joint3", 80); form.AddField("joint4", 250);
+        form.AddField("joint5", 85); form.AddField("joint6", 76);
+        // formulate request and send
+        UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, form);
+/*        UnityWebRequest stopMovement = UnityWebRequest.Post(SERVER_NAME, haltMovement);*/
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(www.error);
         }
