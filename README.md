@@ -23,21 +23,31 @@ sudo apt-get install ros-noetic-rosbridge-server
 After that, start up both the websocket for rosbridge, the server 
 via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected. Echoing the newly created rostopic and restarting Unity will yield output in the terminal that is echoing the topic, if done correctly. 
 
-## WSL - Access to USB ports
-By default, ports are not accessible between WSL2 and Windows. A third party software is needed to forward ports and bind them to WSL to allow access. Install the .msi installer on windows by navigating to this link [here](https://github.com/dorssel/usbipd-win/releases). Once installed, you need to install the appropriate tools on WSL, run both of these commands: 
+## VirtualBox
+We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructiosn: <br /><br />
+
+Once done you must forward two ports, 9090 this websocket, and 8000 the custom node server, see below the images on how to correctly set up the ports: <br /><br />
+
+Once that is done, unplug the robot and reboot the instance. Wait until the instance is fully booted and plug in the robot, remove the device using "Devices and Settings" in windows, not physically. Once removed through windows, physically unplug the device and plug it in, the USB should now be filtered through to your instance and will have a name "VirtualBox USB" if done correctly.
+
+## Kinova ROS
+First, setup a directory in home called ```catkin_ws``` and create a directory named ```src``` within it. 
+Next run the commands:
 ```
-sudo apt install linux-tools-generic hwdata
-sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+cd ~/catkin_ws/src
+git clone -b noetic-devel https://github.com/Kinovarobotics/kinova-ros kinova-ros
+cd ~/catkin_ws
 ```
-To install the appropriate software for WSL.<br />
-### ONCE INSTALLED, RESTART YOUR DEVICE OR ELSE THE FUNCTIONALITY WILL NOT WORK
-Next, in powershell, list the usb devices by running ```usbipd list```, identify the exact device you want to bind and note its bus-id, next run the command ```usbipd bind -b <your_bus-id_here>```. <br />
-This will then allow you to attach your device to WSL by running the command:
+This will clone Kinova's API for the robot. Before you fully create the workspace, you need to install all dependencies that Kinova requires. To do so, run the following command, this will take a while to complete:
 ```
-usbipd attach --wsl -b <your_bus-id_here>
+rosdep install --from-paths src -y --ignore-src
 ```
-Finally, open WSL and run ```lsusb``` to list all usb devices available to WSL. You should now see your usb device that you have attached to WSL. <br />
-<b>NOTE:</b> keep in mind that binding and attaching a usb device to WSL means that windows no longer has access to that device. To give windows access back to that usb, you need to unbind from WSL.
+After that you can run the command ```catkin_make``` and you will have a fully constructed workspace with Kinova's API. To begin to use these new packages, don't forget to source your workspace in every new terminal by using ```source ~/catkin_ws/devel/setup.bash```.
+The next step is to spin up Kinova's stack, you can do this by running the command:
+```
+roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=m1n6s300 
+```
+You should see a succesful connection be established with the robot and listing all the rostopics will show all the currently operating topics that Kinova's driver has created.
 
 ## Other Information
 [Demonstration on how the backend works](https://youtu.be/JW2PU8VDYow)
