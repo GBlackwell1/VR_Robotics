@@ -8,13 +8,22 @@ using JetBrains.Annotations;
 using Firebase.Storage;
 using Firebase.Firestore;
 using Firebase.Extensions;
- 
+using System.Text.RegularExpressions;
+using System;
+
 public class FirebaseScript : MonoBehaviour
 {
     private static string SERVER_NAME = "http://192.168.56.102:8000/get";
     public static bool FLAG_READY = false;
+    // Array of offset values
+    IDictionary<string, float> offsets = new Dictionary<string, float>();
+
+
     void Awake()
     {
+        offsets.Add("joint1", 280f); offsets.Add("joint2", 180f);
+        offsets.Add("joint3", 80f); offsets.Add("joint4", 250f);
+        offsets.Add("joint5", 85f); offsets.Add("joint6", 76f);
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             var dependencyStatus = task.Result;
             if (dependencyStatus == Firebase.DependencyStatus.Available)
@@ -39,7 +48,7 @@ public class FirebaseScript : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ConnectionEstablish());
-        StartCoroutine(TestingJointAction());
+        StartCoroutine(HomeArm());
     }
     /*
      * description: Currently being used to send some initial test data, check
@@ -62,14 +71,13 @@ public class FirebaseScript : MonoBehaviour
             Debug.Log("Succesfully established connection to " + SERVER_NAME);
         }
     }
-    IEnumerator TestingJointAction()
+    public void CallHomeArm()
+    {
+        StartCoroutine(HomeArm());
+    }
+    IEnumerator HomeArm()
     {
         WWWForm form = new WWWForm();
-/*
-        WWWForm haltMovement = new WWWForm();
-        haltMovement.AddField("joint1", 0); haltMovement.AddField("joint2", 0);
-        haltMovement.AddField("joint3", 0); haltMovement.AddField("joint4", 0);
-        haltMovement.AddField("joint5", 0); haltMovement.AddField("joint6", 0);*/
         // Send some basic data
         form.AddField("joint1", 280); form.AddField("joint2", 180);
         form.AddField("joint3", 80); form.AddField("joint4", 250);
@@ -101,21 +109,25 @@ public class FirebaseScript : MonoBehaviour
     // right, because what if we have to go back and query this information if there is a missed move?
     // We need to hold all the rotations and positions of each node until the robot has returned a succesful
     // completion code for the currently requested move.
-    public void SendMovementData(float cartesian_x, float cartesian_y, float cartesian_z, string pivot_name)
+    public void SendMovementData(string pivot_name, double rotation)
     {
-        StartCoroutine(MovementCoroutine(cartesian_x, cartesian_y, cartesian_z, pivot_name));
+        // This queues data in ROS, should move each pivot one by one
+        StartCoroutine(MovementCoroutine(pivot_name, rotation));
     }
-    IEnumerator MovementCoroutine(float cartesian_x, float cartesian_y, float cartesian_z, string pivot_name)
+    IEnumerator MovementCoroutine(string pivot_name, double rotation)
     {
         WWWForm movementData = new WWWForm();
         // Add data to the WWWForm (by pivot)
-        movementData.AddField(pivot_name, cartesian_x.ToString());
-        movementData.AddField(pivot_name, cartesian_y.ToString());
-        movementData.AddField(pivot_name, cartesian_z.ToString());
+        // Parse the pivot name into something usable 
+        string kinova_pivot;
+        if (pivot_name == "Base - Pivot") { kinova_pivot = "joint1";  }
+        else { kinova_pivot = "joint" + Int32.Parse(Regex.Match(pivot_name, @"\d+").Value).ToString(); }
+        // move via offset and keep it within 360 degrees
+        movementData.AddField(kinova_pivot, ((rotation+offsets[kinova_pivot])%360).ToString());
         // Formulate the request and where to send it
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, movementData);
         yield return www.SendWebRequest();
-
+        Debug.Log(kinova_pivot+"   "+rotation.ToString());
         if(www.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError(www.error);
