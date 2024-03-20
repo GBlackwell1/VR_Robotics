@@ -33115,6 +33115,13 @@ MonoBehaviour:
   segmentFourPivot: {fileID: 3203433256067875091}
   segmentFivePivot: {fileID: 9047159836226251134}
   clawPivot: {fileID: 116813574}
+  ghostBasePivot: {fileID: 505656529}
+  ghostSegmentOnePivot: {fileID: 1938011348}
+  ghostSegmentTwoPivot: {fileID: 2021027604}
+  ghostsSegmentThreePivot: {fileID: 209538291}
+  ghostSegmentFourPivot: {fileID: 1965140137}
+  ghostSegmentFivePivot: {fileID: 1802374852}
+  ghostClawPivot: {fileID: 1001734246}
   moveReady: 1
   submitReady: 0
   resetReady: 0

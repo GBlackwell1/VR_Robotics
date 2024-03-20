@@ -109,7 +109,6 @@ public class PivotController : MonoBehaviour
             ghostPivot.transform.localRotation = robotManager.reset_rotations[gameObject.name];
             target = ghostPivot;
             GhostArmDeactivation(true);
-            ROSConnector.CallHomeArm();
             // ResetPostion.SetActive(false);
             // Once the robot is reset, no need to allow the user to reset again
             robot.GetComponent<RobotController>().resetReady = false;
@@ -120,9 +119,6 @@ public class PivotController : MonoBehaviour
             // Once the robot is somewhere else, it can be reset
             robot.GetComponent<RobotController>().resetReady = true;
             // Send the target data at the beginning of the movement
-            ROSConnector.SendMovementData(gameObject.name,
-                (gameObject.name == "Segment 1 - Pivot" || gameObject.name == "Segment 2 - Pivot")
-                ? ghostPivot.transform.localEulerAngles.x : ghostPivot.transform.localEulerAngles.z);
         }
    
 
