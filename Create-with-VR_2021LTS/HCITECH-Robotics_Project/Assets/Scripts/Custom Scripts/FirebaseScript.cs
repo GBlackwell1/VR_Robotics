@@ -22,8 +22,8 @@ public class FirebaseScript : MonoBehaviour
     void Awake()
     {
         offsets.Add("joint1", 280f); offsets.Add("joint2", 180f);
-        offsets.Add("joint3", 80f); offsets.Add("joint4", 250f);
-        offsets.Add("joint5", 85f); offsets.Add("joint6", 76f);
+        offsets.Add("joint3", 80f); offsets.Add("joint4", 70f);
+        offsets.Add("joint5", 85f); offsets.Add("joint6", -104f);
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             var dependencyStatus = task.Result;
             if (dependencyStatus == Firebase.DependencyStatus.Available)
@@ -121,13 +121,18 @@ public class FirebaseScript : MonoBehaviour
         // Parse the pivot name into something usable 
         string kinova_pivot;
         if (pivot_name == "Base - Pivot") { kinova_pivot = "joint1";  }
-        else { kinova_pivot = "joint" + Int32.Parse(Regex.Match(pivot_name, @"\d+").Value).ToString(); }
+        else {
+            int joint_number = Int32.Parse(Regex.Match(pivot_name, @"\d+").Value);
+            kinova_pivot = "joint" + (++joint_number).ToString(); 
+        }
+        Debug.Log("Raw rotations for " + kinova_pivot + " equal to " + rotation);
         // move via offset and keep it within 360 degrees
-        movementData.AddField(kinova_pivot, ((rotation+offsets[kinova_pivot])%360).ToString());
+        double offset_adjustment = (rotation + offsets[kinova_pivot]) % 360;
+        movementData.AddField(kinova_pivot, offset_adjustment.ToString());
         // Formulate the request and where to send it
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, movementData);
         yield return www.SendWebRequest();
-        Debug.Log(kinova_pivot+"   "+rotation.ToString());
+        Debug.Log(kinova_pivot+"   "+ offset_adjustment.ToString());
         if(www.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError(www.error);
