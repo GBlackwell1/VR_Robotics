@@ -58,9 +58,18 @@ app.post('/get', (req, res) => {
         });
         sendData.publish(pubString);
 	console.log("Connection data sent.");
-    } else {
-    	// We've recieved actual movement data
-	console.log(`${color_grn}Movement recieved from UNITY${color_norm}`);
+    } else if (req.body.SUBMIT != undefined) {
+	// Data recieved is a submit move
+	console.log(`${color_grn}Submit movement received from UNITY${color_norm}`);
+	// Send as string in different format
+	var pubMove = new ROSLIB.Message({
+		data: `${req.body.joint1}:${req.body.joint2}:${req.body.joint3}:${req.body.joint4}:${req.body.joint5}:${req.body.joint6}`
+	});
+	sendData.publish(pubMove);
+	console.log(`Data sent was: `+`${req.body.joint1}:${req.body.joint2}:${req.body.joint3}:${req.body.joint4}:${req.body.joint5}:${req.body.joint6}`);
+    } else if (req.body.HOME != undefined) {
+    	// Data recieved is a homing move
+	console.log(`${color_grn}Homing movement received from UNITY${color_norm}`);
 	// Send as a string and add colons to make it easily parsed
 	var pubMove = new ROSLIB.Message({ 
 		data: `${req.body.joint1}:${req.body.joint2}:${req.body.joint3}:${req.body.joint4}:${req.body.joint5}:${req.body.joint6}`
