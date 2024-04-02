@@ -43,17 +43,23 @@ public class RobotController : MonoBehaviour
         IDictionary<string, float> move = new Dictionary<string, float>();
         // Engineering code moment
         move.Add("joint1",
-            ghostBasePivot.transform.localEulerAngles.z);
+            ghostBasePivot.transform.localEulerAngles.z
+            -basePivot.transform.localEulerAngles.z);
         move.Add("joint2",
-            ghostSegmentOnePivot.transform.localEulerAngles.x);
+            ghostSegmentOnePivot.transform.localEulerAngles.x
+            -segmentOnePivot.transform.localEulerAngles.x);
         move.Add("joint3",
-            ghostSegmentTwoPivot.transform.localEulerAngles.x);
+            ghostSegmentTwoPivot.transform.localEulerAngles.x
+            -segmentTwoPivot.transform.localEulerAngles.x);
         move.Add("joint4",
-            ghostsSegmentThreePivot.transform.localEulerAngles.z);
+            ghostsSegmentThreePivot.transform.localEulerAngles.z
+            -segmentThreePivot.transform.localEulerAngles.z);
         move.Add("joint5",
-            ghostSegmentFourPivot.transform.localEulerAngles.z);
+            ghostSegmentFourPivot.transform.localEulerAngles.z
+            -segmentFourPivot.transform.localEulerAngles.z);
         move.Add("joint6",
-            ghostSegmentFivePivot.transform.localEulerAngles.z);
+            ghostSegmentFivePivot.transform.localEulerAngles.z
+            -segmentFivePivot.transform.localEulerAngles.z);
         ROSConnector.SendMovementData(move);
         moveReady = false;
         basePivot.GetComponent<PivotController>().TranslatePivot(false);

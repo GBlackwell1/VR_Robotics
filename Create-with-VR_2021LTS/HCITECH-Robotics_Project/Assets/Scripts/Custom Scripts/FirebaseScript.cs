@@ -126,7 +126,7 @@ public class FirebaseScript : MonoBehaviour
         foreach (KeyValuePair<string, float> rotation in move)
         {
             // move via offset and keep it within 360 degrees, notify server submit move happened
-            double offset_adjustment = (rotation.Value + offsets[rotation.Key]) % 360;
+            double offset_adjustment = rotation.Value;
             movementData.AddField(rotation.Key, offset_adjustment.ToString());
         }
         movementData.AddField("SUBMIT", "true");
