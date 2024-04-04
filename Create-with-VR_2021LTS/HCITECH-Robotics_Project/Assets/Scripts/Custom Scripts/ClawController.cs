@@ -24,6 +24,7 @@ public class ClawController : MonoBehaviour
     private bool isSelected = false;
     private bool isClosed = false;
     private bool isMoving = false;
+    private bool snapItem = false;
     private String start = "open";
     private FirebaseScript firebase;
 
@@ -142,6 +143,12 @@ public class ClawController : MonoBehaviour
         }
     }
 
+    // Is true if the task item should snap, and is false otherwise
+    public bool checkClosed()
+    {
+        return snapItem;
+    }
+
     IEnumerator MovePivot(bool reset)
     {
         Dictionary<string, object> data = new Dictionary<string, object>();
@@ -156,6 +163,7 @@ public class ClawController : MonoBehaviour
         {
             if(isClosed)
             {
+                snapItem = false;
                 GhostArmDeactivation(true);
                 robot.GetComponent<RobotController>().moveReady = false;
                 while (finger1.transform.localEulerAngles.z >= minAngle)
@@ -184,6 +192,14 @@ public class ClawController : MonoBehaviour
             target1 = ghostFinger1;
             target2 = ghostFinger2;
             target3 = ghostFinger3;
+            if (isClosed)
+            {
+                snapItem = true;
+            }
+            else
+            {
+                snapItem = false;
+            }
             // Once the robot is somewhere else, it can be reset
             robot.GetComponent<RobotController>().resetReady = true;
             // While the target's rotation is not the same as the current pivot's

@@ -9,6 +9,8 @@ TagManager:
   - Hand
   - Ghost
   - Joint Collider
+  - Task Item
+  - Task 1
   layers:
   - Default
   - TransparentFX
