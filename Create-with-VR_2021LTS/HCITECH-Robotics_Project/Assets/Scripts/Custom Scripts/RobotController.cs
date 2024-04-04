@@ -43,23 +43,17 @@ public class RobotController : MonoBehaviour
         IDictionary<string, float> move = new Dictionary<string, float>();
         // Engineering code moment
         move.Add("joint1",
-            ghostBasePivot.transform.localEulerAngles.z
-            -basePivot.transform.localEulerAngles.z);
+            basePivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint2",
-            ghostSegmentOnePivot.transform.localEulerAngles.x
-            -segmentOnePivot.transform.localEulerAngles.x);
+            segmentOnePivot.GetComponent<PivotController>().GetAngle(false));
         move.Add("joint3",
-            ghostSegmentTwoPivot.transform.localEulerAngles.x
-            -segmentTwoPivot.transform.localEulerAngles.x);
+            segmentTwoPivot.GetComponent<PivotController>().GetAngle(false));
         move.Add("joint4",
-            ghostsSegmentThreePivot.transform.localEulerAngles.z
-            -segmentThreePivot.transform.localEulerAngles.z);
+            segmentThreePivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint5",
-            ghostSegmentFourPivot.transform.localEulerAngles.z
-            -segmentFourPivot.transform.localEulerAngles.z);
+            segmentFourPivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint6",
-            ghostSegmentFivePivot.transform.localEulerAngles.z
-            -segmentFivePivot.transform.localEulerAngles.z);
+            segmentFivePivot.GetComponent<PivotController>().GetAngle());
         ROSConnector.SendMovementData(move);
         moveReady = false;
         basePivot.GetComponent<PivotController>().TranslatePivot(false);

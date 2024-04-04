@@ -73,6 +73,37 @@ public class PivotController : MonoBehaviour
         else { ghostArm.SetActive(false); }
 
     }
+
+    // Finds the angle between the current privot positon and the ghost pivot position
+    public float GetAngle(bool z = true)
+    {
+        float current = 0f;
+        float target = 0f;
+        float ret = 0f;
+        if (z) 
+        {
+            target = ghostPivot.transform.localEulerAngles.z;
+            current = gameObject.transform.localEulerAngles.z;
+        } else
+        {
+            target = ghostPivot.transform.localEulerAngles.x;
+            current = gameObject.transform.localEulerAngles.x;
+        }
+        float difference = Mathf.Abs(target - current);
+
+        if(difference > 180)
+        {
+            // Converts value to correct value
+            difference = -1 * (360 - difference);
+        }
+
+        // Accounts for orientation
+        ret = Mathf.Sign(target - current) * difference; 
+        
+        Debug.Log(" current " + current + " target: " + target + " result: " + ret + gameObject.ToString());
+        return ret;
+    }
+
     // Only run the update function if something is selected
     public void SelectionHandler()
     {
