@@ -17,7 +17,7 @@ public class PivotController : MonoBehaviour
     private float rotationModifier;
     // Defaults forselection activation
     private bool isSelected = false;
-    private FirebaseScript firebase;
+    private FirebaseScript ROSConnector;
     private RobotManager robotManager;
 
     // Default robot starting positions
@@ -26,7 +26,7 @@ public class PivotController : MonoBehaviour
     void Start()
     {
         robot = GameObject.Find("Robot Arm - New");
-        firebase =  GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
+        ROSConnector =  GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
         robotManager = GameObject.Find("ROBOTMANAGER").GetComponent<RobotManager>();
         GhostArmDeactivation(false);
     }
@@ -118,12 +118,9 @@ public class PivotController : MonoBehaviour
             target = ghostPivot;
             // Once the robot is somewhere else, it can be reset
             robot.GetComponent<RobotController>().resetReady = true;
+            // Send the target data at the beginning of the movement
         }
-        // Send the target data at the beginning of the movement
-        firebase.SendMovementData(target.transform.localRotation.x,
-                                  target.transform.localRotation.y,
-                                  target.transform.localRotation.z,
-                                  gameObject.name);
+   
 
         // While the target's rotation is not the same as the current pivot's
         // continue to rotate the pivot towards that direction
@@ -144,7 +141,7 @@ public class PivotController : MonoBehaviour
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);
-        firebase.SendTimeData(System.DateTime.UtcNow);
+        ROSConnector.SendTimeData(System.DateTime.UtcNow);
         StopCoroutine(MovePivot(reset));
     }
 }

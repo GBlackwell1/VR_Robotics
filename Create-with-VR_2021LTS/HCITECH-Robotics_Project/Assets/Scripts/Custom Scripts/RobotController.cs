@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class RobotController : MonoBehaviour
@@ -12,6 +13,17 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject segmentFourPivot;
     [SerializeField] GameObject segmentFivePivot;
     [SerializeField] GameObject clawPivot;
+
+
+    // Ghost arm joints
+    [SerializeField] GameObject ghostBasePivot;
+    [SerializeField] GameObject ghostSegmentOnePivot;
+    [SerializeField] GameObject ghostSegmentTwoPivot;
+    [SerializeField] GameObject ghostsSegmentThreePivot;
+    [SerializeField] GameObject ghostSegmentFourPivot;
+    [SerializeField] GameObject ghostSegmentFivePivot;
+    [SerializeField] GameObject ghostClawPivot;
+    private FirebaseScript ROSConnector;
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
 
@@ -22,12 +34,33 @@ public class RobotController : MonoBehaviour
 
     public void Start()
     {
-        
+        ROSConnector = GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
     }
     // Call one function instead of 5 different functions
     // upon the submit move button click
     public void MoveRobot()
     {
+        IDictionary<string, float> move = new Dictionary<string, float>();
+        // Engineering code moment
+        move.Add("joint1",
+            ghostBasePivot.transform.localEulerAngles.z
+            -basePivot.transform.localEulerAngles.z);
+        move.Add("joint2",
+            ghostSegmentOnePivot.transform.localEulerAngles.x
+            -segmentOnePivot.transform.localEulerAngles.x);
+        move.Add("joint3",
+            ghostSegmentTwoPivot.transform.localEulerAngles.x
+            -segmentTwoPivot.transform.localEulerAngles.x);
+        move.Add("joint4",
+            ghostsSegmentThreePivot.transform.localEulerAngles.z
+            -segmentThreePivot.transform.localEulerAngles.z);
+        move.Add("joint5",
+            ghostSegmentFourPivot.transform.localEulerAngles.z
+            -segmentFourPivot.transform.localEulerAngles.z);
+        move.Add("joint6",
+            ghostSegmentFivePivot.transform.localEulerAngles.z
+            -segmentFivePivot.transform.localEulerAngles.z);
+        ROSConnector.SendMovementData(move);
         moveReady = false;
         basePivot.GetComponent<PivotController>().TranslatePivot(false);
         segmentOnePivot.GetComponent<PivotController>().TranslatePivot(false);
@@ -40,6 +73,7 @@ public class RobotController : MonoBehaviour
     // Method for resetting the robot
     // The hardcoded true value means that it will reset to origin
     public void ResetRobot() {
+        ROSConnector.CallHomeArm();
         moveReady = false;
         basePivot.GetComponent<PivotController>().TranslatePivot(true);
         segmentOnePivot.GetComponent<PivotController>().TranslatePivot(true);
