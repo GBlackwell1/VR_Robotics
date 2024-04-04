@@ -98,10 +98,7 @@ public class PivotController : MonoBehaviour
         }
 
         // Accounts for orientation
-        ret = Mathf.Sign(target - current) * difference; 
-        
-        Debug.Log(" current " + current + " target: " + target + " result: " + ret + gameObject.ToString());
-        return ret;
+        return Mathf.Sign(target - current) * difference; 
     }
 
     // Only run the update function if something is selected
