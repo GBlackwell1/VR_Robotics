@@ -79,7 +79,6 @@ public class PivotController : MonoBehaviour
     {
         float current = 0f;
         float target = 0f;
-        float ret = 0f;
         if (z) 
         {
             target = ghostPivot.transform.localEulerAngles.z;

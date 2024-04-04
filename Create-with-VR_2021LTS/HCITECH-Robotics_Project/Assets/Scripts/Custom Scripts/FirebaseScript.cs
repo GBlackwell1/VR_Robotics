@@ -123,13 +123,17 @@ public class FirebaseScript : MonoBehaviour
         WWWForm movementData = new WWWForm();
         // Add data to the WWWForm (by pivot)
         // Parse the pivot name into something usable 
+        string data = "";
         foreach (KeyValuePair<string, float> rotation in move)
         {
             // move via offset and keep it within 360 degrees, notify server submit move happened
             double offset_adjustment = rotation.Value;
             movementData.AddField(rotation.Key, offset_adjustment.ToString());
+            data += rotation.Key + ": " + offset_adjustment.ToString() + " ";
         }
         movementData.AddField("SUBMIT", "true");
+
+        Debug.Log("MOVEMENT DATA: " + data);
         // Formulate the request and where to send it
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, movementData);
         yield return www.SendWebRequest();

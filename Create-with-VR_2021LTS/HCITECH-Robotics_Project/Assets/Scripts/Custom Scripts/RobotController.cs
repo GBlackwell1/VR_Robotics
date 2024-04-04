@@ -46,14 +46,15 @@ public class RobotController : MonoBehaviour
             basePivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint2",
             segmentOnePivot.GetComponent<PivotController>().GetAngle(false));
+        // Just needed to be negative for pivots 3 and up
         move.Add("joint3",
-            segmentTwoPivot.GetComponent<PivotController>().GetAngle(false));
+            -segmentTwoPivot.GetComponent<PivotController>().GetAngle(false));
         move.Add("joint4",
-            segmentThreePivot.GetComponent<PivotController>().GetAngle());
+            -segmentThreePivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint5",
-            segmentFourPivot.GetComponent<PivotController>().GetAngle());
+            -segmentFourPivot.GetComponent<PivotController>().GetAngle());
         move.Add("joint6",
-            segmentFivePivot.GetComponent<PivotController>().GetAngle());
+            -segmentFivePivot.GetComponent<PivotController>().GetAngle());
         ROSConnector.SendMovementData(move);
         moveReady = false;
         basePivot.GetComponent<PivotController>().TranslatePivot(false);
