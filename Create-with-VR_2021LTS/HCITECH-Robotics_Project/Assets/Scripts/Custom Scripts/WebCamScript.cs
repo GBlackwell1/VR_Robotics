@@ -7,12 +7,12 @@ public class WebCamScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var cam = "";
+        List<string> cams = new List<string>();
         foreach (WebCamDevice device in WebCamTexture.devices)
         {
-            cam = device.name;
+            cams.Add(device.name);
         }
-        WebCamTexture webcam = new WebCamTexture(cam);
+        WebCamTexture webcam = new WebCamTexture(cams[0]);
         GetComponent<Renderer>().material.mainTexture = webcam;
         webcam.Play();
     }
