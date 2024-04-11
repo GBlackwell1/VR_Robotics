@@ -18,6 +18,7 @@ let color_yell = `\x1b[33m`; let color_grn = `\x1b[32m`;
 let node1; let node2; let node3; 
 let node4; let node5; let node6;
 let pos_x; let pos_y; let pos_z;
+
 // Handle ros connection to rosbridge websocket
 var ros = new ROSLIB.Ros({
     url : 'ws://localhost:9090'
@@ -31,21 +32,38 @@ ros.on('error', function(error) {
 ros.on('close', function() {
     console.log('Connection to websocket server closed')
 })
+
 // Create ROS topics
 var sendData = new ROSLIB.Topic({
     ros: ros,
     name: '/unity_incoming',
     messageType: 'std_msgs/String'
 })
+var receiveData = new ROSLIB.Topic({
+    ros: ros,
+    name: '/kinova_outgoing',
+    messageType: 'std_msgs/String'
+})
+// Subscribe to the topic
+receiveData.subscribe(function(msg) {
+    console.log('Recieved message on '+receiveData.name+' : '+msg.data)
+    receiveData.emit('received', msg.data)
+})
+
 // Handle requests
 app.get('/', (req, res) => {
     // here root should load the html page
     res.send('root');
 })
+
 app.get('/get', (req, res) => {
     console.log("Get page requested")
-    res.send('GET data');
+    // Wait for an emission from the subscribe callback, then send response
+    receiveData.waitFor('received').then(function (data) {
+        res.send(data)
+    })
 })
+
 app.post('/get', (req, res) => {
     if (req.body.Connection != undefined) {
         // This means that we have sent the initial data from the 
@@ -58,7 +76,7 @@ app.post('/get', (req, res) => {
         });
         sendData.publish(pubString);
 	console.log("Connection data sent.");
-    } else if (req.body.SUBMIT != undefined) {
+    } else if (req.body.SUBMIT != undefined) {  
 	// Data recieved is a submit move
 	console.log(`${color_grn}Submit movement received from UNITY${color_norm}`);
 	
@@ -80,13 +98,17 @@ app.post('/get', (req, res) => {
     }	
     res.status(201).send("POST data");
 })
+
 app.put('/get', (req, res) => {
     res.send('PUT data');
 })
+
 app.delete('/get', (req, res) => {
     res.send("DELETE data");
 })
+
 // Setup the server on the port
+
 app.listen(port, host, () => {
     console.log(`Server is running on port ${port}`);
 })
