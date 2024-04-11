@@ -145,6 +145,21 @@ public class FirebaseScript : MonoBehaviour
         {
             Debug.Log("Succesfully posted movement data to " + SERVER_NAME);
         }
+        // Next step, wait for response from kinova
+
+        Debug.Log("WAITING FOR RESPONSE...");
+        UnityWebRequest statusRequest = UnityWebRequest.Get(SERVER_NAME);
+        yield return statusRequest.SendWebRequest();
+        if (statusRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(statusRequest.error);
+        }
+        else
+        {
+            // Format this text
+            Debug.Log(statusRequest.downloadHandler.text);
+            // TODO: Alter button status and INTERACTABLE text
+        }
     }
     // Don't currently know how we're using this but it is nice to have
     public void SendTimeData(System.DateTime time)
