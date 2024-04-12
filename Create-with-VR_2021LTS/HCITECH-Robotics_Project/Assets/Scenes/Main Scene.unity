@@ -17415,6 +17415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831d75d90eb3d8f408455915237cbc2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIHandler: {fileID: 573101214}
 --- !u!4 &1358836401
 Transform:
   m_ObjectHideFlags: 0

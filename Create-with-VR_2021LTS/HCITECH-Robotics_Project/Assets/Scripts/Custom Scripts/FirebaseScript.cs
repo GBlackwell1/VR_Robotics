@@ -10,14 +10,19 @@ using Firebase.Firestore;
 using Firebase.Extensions;
 using System.Text.RegularExpressions;
 using System;
+using Unity.XR.CoreUtils;
+using UnityEditor.PackageManager;
 
 public class FirebaseScript : MonoBehaviour
 {
     private static string SERVER_NAME = "http://192.168.56.102:8000/get";
+    [SerializeField] GameObject UIHandler;
     public static bool FLAG_READY = false;
     // Array of offset values
     IDictionary<string, float> offsets = new Dictionary<string, float>();
-
+    string[] STATUS_CODES = {"move pending", "move processing", "move preempted", "move success",
+                             "move aborted", "move rejected", "move preempting", "move recalling", 
+                             "move recalled", "move lost"};
 
     void Awake()
     {
@@ -49,7 +54,7 @@ public class FirebaseScript : MonoBehaviour
     }
     private void Start()
     {
-        
+   
     }
     /*
      * description: Currently being used to send some initial test data, check
@@ -72,6 +77,7 @@ public class FirebaseScript : MonoBehaviour
             Debug.Log("Succesfully established connection to " + SERVER_NAME);
         }
     }
+
     public void CallHomeArm()
     {
         StartCoroutine(HomeArm());
@@ -79,6 +85,7 @@ public class FirebaseScript : MonoBehaviour
     IEnumerator HomeArm()
     {
         Debug.Log("HOME CALLED");
+        UIHandler.GetComponent<UITextHandler>().UpdateStatus(false, "Homing robot...");
         WWWForm form = new WWWForm();
         // Send some basic data
         form.AddField("joint1", 275); form.AddField("joint2", 150);
@@ -87,16 +94,36 @@ public class FirebaseScript : MonoBehaviour
         form.AddField("HOME", "true");
         // formulate request and send
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, form);
-/*        UnityWebRequest stopMovement = UnityWebRequest.Post(SERVER_NAME, haltMovement);*/
-        yield return www.SendWebRequest();
 
+        yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(www.error);
+            UIHandler.GetComponent<UITextHandler>().UpdateStatus(true, www.error.Substring(0,10)+"...");
         }
         else
         {
             Debug.Log("Succesfully established connection to " + SERVER_NAME);
+            // Next wait for success code
+            Debug.Log("WAITING FOR RESPONSE...");
+            UnityWebRequest statusRequest = UnityWebRequest.Get(SERVER_NAME);
+            yield return statusRequest.SendWebRequest();
+            if (statusRequest.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(statusRequest.error);
+                UIHandler.GetComponent<UITextHandler>().UpdateStatus(true,
+                    statusRequest.error.Substring(0, 10) + "...");
+            }
+            else
+            {
+                // Format this text
+                string response = statusRequest.downloadHandler.text;
+                Debug.Log("Response: "+response);
+                var split_data = response.Split(":");
+                int status_code = Int32.Parse(split_data[1].Substring(0,1));
+                UIHandler.GetComponent<UITextHandler>().UpdateStatus(true, STATUS_CODES[status_code]);
+            }
+
         }
     }
     // Sends movement data in the form of a WWWForm to node server
@@ -120,6 +147,7 @@ public class FirebaseScript : MonoBehaviour
     IEnumerator MovementCoroutine(IDictionary<string, float> move)
     {
         Debug.Log("MOVEMENT CALLED");
+        UIHandler.GetComponent<UITextHandler>().UpdateStatus(false, "");
         WWWForm movementData = new WWWForm();
         // Add data to the WWWForm (by pivot)
         // Parse the pivot name into something usable 
@@ -140,26 +168,31 @@ public class FirebaseScript : MonoBehaviour
         if(www.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError(www.error);
+            UIHandler.GetComponent<UITextHandler>().UpdateStatus(true, www.error.Substring(0, 10) + "...");
         } 
         else
         {
             Debug.Log("Succesfully posted movement data to " + SERVER_NAME);
+            // Next step, wait for response from kinova
+            Debug.Log("WAITING FOR RESPONSE...");
+            UnityWebRequest statusRequest = UnityWebRequest.Get(SERVER_NAME);
+            yield return statusRequest.SendWebRequest();
+            if (statusRequest.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(statusRequest.error);
+                UIHandler.GetComponent<UITextHandler>().UpdateStatus(true, 
+                    statusRequest.error.Substring(0, 10) + "...");
+            }
+            else
+            {
+                string response = statusRequest.downloadHandler.text;
+                Debug.Log("Response: " + response);
+                var split_data = response.Split(":");
+                int status_code = Int32.Parse(split_data[1].Substring(0,1));
+                UIHandler.GetComponent<UITextHandler>().UpdateStatus(true, STATUS_CODES[status_code]);
+            }
         }
-        // Next step, wait for response from kinova
-
-        Debug.Log("WAITING FOR RESPONSE...");
-        UnityWebRequest statusRequest = UnityWebRequest.Get(SERVER_NAME);
-        yield return statusRequest.SendWebRequest();
-        if (statusRequest.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(statusRequest.error);
-        }
-        else
-        {
-            // Format this text
-            Debug.Log(statusRequest.downloadHandler.text);
-            // TODO: Alter button status and INTERACTABLE text
-        }
+      
     }
     // Don't currently know how we're using this but it is nice to have
     public void SendTimeData(System.DateTime time)
