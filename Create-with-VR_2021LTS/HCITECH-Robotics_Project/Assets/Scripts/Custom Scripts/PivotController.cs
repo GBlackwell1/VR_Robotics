@@ -33,7 +33,7 @@ public class PivotController : MonoBehaviour
     {
         hand = robotManager.GetSelectedHand();
         rotationModifier = GameObject.Find("ROBOTMANAGER").GetComponent<RobotManager>().GetSpeedModifier();
-        if (isSelected)
+        if (isSelected && robot.GetComponent<RobotController>().moveReady)
         {
             // If the pivot is base rotate around 
             // if it's any other pivot, rotate around it's y-axis
