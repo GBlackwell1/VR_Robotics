@@ -24,6 +24,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject ghostSegmentFivePivot;
     [SerializeField] GameObject ghostClawPivot;
     private FirebaseScript ROSConnector;
+
     // Okay so this is going to be janky and might not work correctly but
     // Kinova's back end API should handle this so don't worry too much about it
 
@@ -36,6 +37,7 @@ public class RobotController : MonoBehaviour
     {
         ROSConnector = GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
     }
+
     // Call one function instead of 5 different functions
     // upon the submit move button click
     public void MoveRobot()

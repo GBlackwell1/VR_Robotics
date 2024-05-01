@@ -9,7 +9,7 @@ public class PivotController : MonoBehaviour
 {
     private Dictionary<string, Vector3> reset_positions = new Dictionary<string, Vector3>();
     private Dictionary<string, Vector3> reset_locations = new Dictionary<string, Vector3>();
-    [SerializeField] GameObject hand;
+    private GameObject hand;
     [SerializeField] GameObject ghostArm;
     [SerializeField] GameObject ghostPivot;
     private GameObject robot;
@@ -20,8 +20,6 @@ public class PivotController : MonoBehaviour
     private FirebaseScript ROSConnector;
     private RobotManager robotManager;
 
-    // Default robot starting positions
-    // [SerializeField] GameObject ResetPostion;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +31,7 @@ public class PivotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hand = robotManager.GetSelectedHand();
         rotationModifier = GameObject.Find("ROBOTMANAGER").GetComponent<RobotManager>().GetSpeedModifier();
         if (isSelected)
         {

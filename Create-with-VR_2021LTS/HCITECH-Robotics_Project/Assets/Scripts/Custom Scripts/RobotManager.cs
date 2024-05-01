@@ -6,6 +6,9 @@ public class RobotManager : MonoBehaviour
 {
     public Dictionary<string, Vector3> reset_positions = new Dictionary<string, Vector3>();
     public Dictionary<string, Quaternion> reset_rotations = new Dictionary<string, Quaternion>();
+    [SerializeField] GameObject RightHand;
+    [SerializeField] GameObject LeftHand;
+    private GameObject SelectedHand;
     void Start()
     {
         // Add positions to dictionary
@@ -35,5 +38,23 @@ public class RobotManager : MonoBehaviour
     public float GetSpeedModifier()
     {
         return speedModifier;
+    }
+
+    public void SetRightHand()
+    {
+        SelectedHand = RightHand;
+    }
+    public void SetLeftHand()
+    {
+        SelectedHand = LeftHand;
+    }
+    public GameObject GetSelectedHand()
+    {
+        if (SelectedHand != null)
+        {
+            return SelectedHand;
+        }
+        // Default right hand
+        else return RightHand;
     }
 }
