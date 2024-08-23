@@ -24,9 +24,9 @@ After that, start up both the websocket for rosbridge, the server
 via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected. Echoing the newly created rostopic and restarting Unity will yield output in the terminal that is echoing the topic, if done correctly. 
 
 ## VirtualBox
-We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructiosn: <br /><br />
+We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructions: <br />[TODO: GIF]<br />
 
-Once done you must forward two ports, 9090 this websocket, and 8000 the custom node server, see below the images on how to correctly set up the ports: <br /><br />
+Once done you must forward two ports, 9090 this websocket, and 8000 the custom node server, see below the images on how to correctly set up the ports: <br />[TODO: GIF]<br />
 
 Once that is done, unplug the robot and reboot the instance. Wait until the instance is fully booted and plug in the robot, remove the device using "Devices and Settings" in windows, not physically. Once removed through windows, physically unplug the device and plug it in, the USB should now be filtered through to your instance and will have a name "VirtualBox USB" if done correctly.
 
