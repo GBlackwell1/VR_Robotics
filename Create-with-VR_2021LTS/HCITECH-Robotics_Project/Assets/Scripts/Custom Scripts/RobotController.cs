@@ -40,6 +40,9 @@ public class RobotController : MonoBehaviour
 
     // Call one function instead of 5 different functions
     // upon the submit move button click
+
+
+    // LOG HERE with some way to detect whether we are working with the task or the 
     public void MoveRobot()
     {
         IDictionary<string, float> move = new Dictionary<string, float>();

@@ -8,6 +8,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] GameObject Timer;
     [SerializeField] GameObject Task1;
     [SerializeField] GameObject TaskInteractable1;
+    [SerializeField] GameObject Firebase;
     private int currTask = 0;
     
     
@@ -19,6 +20,7 @@ public class TaskManager : MonoBehaviour
         Task1.SetActive(enabled);
         TaskInteractable1.SetActive(enabled);
         currTask = enabled ? 1 : 0;
+        Firebase.GetComponent<FirebaseScript>().TaskLogTime("start_time");
     }
 
     // Resets the currently enabled task

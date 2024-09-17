@@ -9,6 +9,7 @@ public class TaskDriver1 : MonoBehaviour
     [SerializeField] GameObject timer;
     [SerializeField] GameObject cube;
     [SerializeField] SnappingVolume snappingVolume;
+    [SerializeField] GameObject Firebase;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 
@@ -33,6 +34,7 @@ public class TaskDriver1 : MonoBehaviour
         if(collision.gameObject.tag == "Task Item")
         {
             timer.GetComponent<Timer>().StopTimer();
+            Firebase.GetComponent<FirebaseScript>().TaskLogTime("end_time");
         }
     }
 }

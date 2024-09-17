@@ -15,20 +15,26 @@ using UnityEditor.PackageManager;
 
 public class FirebaseScript : MonoBehaviour
 {
+    // TODO: Have UI element where user's can type in participant ID, makes data logging easier
     private static string SERVER_NAME = "http://192.168.56.102:8000/get";
     [SerializeField] GameObject UIHandler;
     public static bool FLAG_READY = false;
+    private static bool FLAG_TASK = false;
+    private const string COLLECTION = "Fall24_Dev_Grouping";
     // Array of offset values
-    IDictionary<string, float> offsets = new Dictionary<string, float>();
-    string[] STATUS_CODES = {"move pending", "move processing", "move preempted", "move success",
+    IDictionary<string, float> offsets = new Dictionary<string, float> {
+        {"joint1", 275f}, {"joint2", 150f}, {"joint3", 61f}, 
+        {"joint4", 258f}, {"joint5", 12f}, {"joint6", 91f } 
+    };
+    private string[] STATUS_CODES = {"move pending", "move processing", "move preempted", "move success",
                              "move aborted", "move rejected", "move preempting", "move recalling", 
                              "move recalled", "move lost"};
-
+    //private int taskMove = 0;
+    //private int regMove = 0;
+    private DateTime taskStart; private DateTime taskEnd;
     void Awake()
     {
-        offsets.Add("joint1", 275f); offsets.Add("joint2", 150f);
-        offsets.Add("joint3", 61f); offsets.Add("joint4", 78f);
-        offsets.Add("joint5", 12f); offsets.Add("joint6", -89f);
+       
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             var dependencyStatus = task.Result;
             if (dependencyStatus == Firebase.DependencyStatus.Available)
@@ -39,7 +45,7 @@ public class FirebaseScript : MonoBehaviour
                 Debug.Log("Firebase was available and connection has been established");
                 // Set a flag here to indicate whether Firebase is ready to use by your app.
                 FLAG_READY = true;
-                /*DevelopmentFunction();*/
+                InitParticipant();
             }
             else
             {
@@ -56,11 +62,105 @@ public class FirebaseScript : MonoBehaviour
     {
    
     }
-    /*
-     * description: Currently being used to send some initial test data, check
-     *  the output of the node server, should reply with "Connection established with UNITY"
-     *  assuming that it has ran correctly
-     */
+    /// <summary>
+    /// Intializes the participant in firebase upon entering the program 
+    /// </summary>
+    private void InitParticipant()
+    {
+        if (FLAG_READY)
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            DocumentReference docRef = db.Collection(COLLECTION).Document("uniqueID");
+            Dictionary<string, object> dataToSend = new Dictionary<string, object>
+            {
+                { "name", "Gabriel Blackwell" },
+                { "testID", "uniqueID" },
+                { "platform_start", DateTime.Now },
+            };
+            docRef.SetAsync(dataToSend).ContinueWithOnMainThread(task =>
+            {
+                Debug.Log("DocRef test data has been sent to database!");
+            });
+        }
+        else Debug.LogError("Firebase not initialized");
+    }
+    /// <summary>
+    /// Logs to the database the starting and ending time of the task
+    /// </summary>
+    /// <param name="FieldName">Denotes whether starting or ending time for the task</param>
+    public void TaskLogTime(string FieldName)
+    {
+        // Set the starting and ending times independent of the database
+        if (FieldName.Equals("start_time"))
+        {
+            FLAG_TASK = true;
+            taskStart = DateTime.Now;
+        }
+        else 
+        { 
+            FLAG_TASK = false;
+            taskEnd = DateTime.Now; 
+        }
+        // If firebase intialized then log data to the database
+        if (FLAG_READY)
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            DocumentReference docRef = db.Collection(COLLECTION)
+                                         .Document("uniqueID").Collection("Task")
+                                         .Document("Data");
+            Dictionary<string, object> dataToSend = new Dictionary<string, object>
+            {{ FieldName, DateTime.Now }};
+            // If logging end time, log elapsed time too
+            if (taskEnd != null && taskEnd > taskStart) 
+                dataToSend.Add("elapsed_time", taskEnd-taskStart);
+            // Send document
+            docRef.SetAsync(dataToSend).ContinueWithOnMainThread(task =>
+            {
+                Debug.Log("Updating "+FieldName+" for the task.");
+            });
+        }
+        else Debug.LogError("Firebase not initialized");
+
+
+    }
+    /// <summary>
+    /// Logs the move for each pivot to firebase
+    /// </summary>
+    /// <param name="type">The type of move submitted, relative or homing</param>
+    /// <param name="move">Dictionary of moves seperated by pivot</param>
+    private void LogMove(string type, IDictionary<string, float> move)
+    {
+        if (FLAG_READY)
+        {
+            FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
+            CollectionReference collRef;
+            // Choose which collection to add to depending on whether the user is doing the task
+            if (FLAG_TASK)
+                collRef = db.Collection(COLLECTION).Document("uniqueID")
+                            .Collection("Task").Document("Data")
+                            .Collection("Moves");
+            else
+                collRef = db.Collection(COLLECTION).Document("uniqueID")
+                            .Collection("Moves");
+            Dictionary<string, object> docData = new Dictionary<string, object>{
+                { "type", type },
+                { "time_moved", DateTime.Now}
+            };
+            // Add all the data for each pivot into the document
+            foreach (KeyValuePair<string, float> rotation in move)
+                docData.Add(rotation.Key, rotation.Value);
+            // Send the finalized document to the database
+            collRef.AddAsync(docData).ContinueWithOnMainThread(task =>
+            {
+                Debug.Log("Updated movement collection in firebase");
+            });
+        }
+        else Debug.LogError("Firebase not initialized");
+    }
+    /// <summary>
+    /// Sends an initial connection string TRUE to the server to verify operation
+    /// </summary>
+    /// <returns>Web request</returns>
     IEnumerator ConnectionEstablish()
     {
         WWWForm form = new WWWForm();
@@ -77,20 +177,24 @@ public class FirebaseScript : MonoBehaviour
             Debug.Log("Succesfully established connection to " + SERVER_NAME);
         }
     }
-
+    /// <summary>
+    /// Send a post request to set the phyiscal arm to the preset Home position
+    /// </summary>
     public void CallHomeArm()
     {
+        LogMove("homing", offsets);
         StartCoroutine(HomeArm());
-    }
+    }   
+    // TODO: Create move counter
     IEnumerator HomeArm()
     {
         Debug.Log("HOME CALLED");
         UIHandler.GetComponent<UITextHandler>().UpdateStatus(false, "Homing robot...");
         WWWForm form = new WWWForm();
         // Send some basic data
-        form.AddField("joint1", 275); form.AddField("joint2", 150);
-        form.AddField("joint3", 61); form.AddField("joint4", 258);
-        form.AddField("joint5", 12); form.AddField("joint6", 91);
+        // TODO: Test and make sure float conversions to string don't cause issues later in the stack
+        foreach (KeyValuePair<string, float> move in offsets) 
+            form.AddField(move.Key, move.Value.ToString());
         form.AddField("HOME", "true");
         // formulate request and send
         UnityWebRequest www = UnityWebRequest.Post(SERVER_NAME, form);
@@ -142,6 +246,7 @@ public class FirebaseScript : MonoBehaviour
     public void SendMovementData(IDictionary<string, float> move)
     {
         // This queues data in ROS, should move each pivot one by one
+        LogMove("relative", move);
         StartCoroutine(MovementCoroutine(move));
     }
     IEnumerator MovementCoroutine(IDictionary<string, float> move)
