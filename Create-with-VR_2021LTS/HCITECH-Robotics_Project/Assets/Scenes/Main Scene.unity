@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.183875, g: 0.22900346, b: 0.3030123, a: 1}
+  m_IndirectSpecularColor: {r: 0.18387485, g: 0.22900298, b: 0.30301175, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8526,6 +8526,7 @@ MonoBehaviour:
   timer: {fileID: 1873596298}
   cube: {fileID: 492003274}
   snappingVolume: {fileID: 1004851442}
+  Firebase: {fileID: 1358836399}
 --- !u!114 &656389061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20151,6 +20152,7 @@ MonoBehaviour:
   Timer: {fileID: 1873596298}
   Task1: {fileID: 1490128310}
   TaskInteractable1: {fileID: 1004851440}
+  Firebase: {fileID: 1358836399}
 --- !u!1 &1691015513
 GameObject:
   m_ObjectHideFlags: 0

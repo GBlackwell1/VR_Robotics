@@ -20,7 +20,13 @@ public class TaskManager : MonoBehaviour
         Task1.SetActive(enabled);
         TaskInteractable1.SetActive(enabled);
         currTask = enabled ? 1 : 0;
-        Firebase.GetComponent<FirebaseScript>().TaskLogTime("start_time");
+        if (currTask == 1)
+        {
+            Firebase.GetComponent<FirebaseScript>().TaskLogTime("start_time");
+        }else
+        {
+            Firebase.GetComponent<FirebaseScript>().TaskLogTime("end_time");
+        }
     }
 
     // Resets the currently enabled task

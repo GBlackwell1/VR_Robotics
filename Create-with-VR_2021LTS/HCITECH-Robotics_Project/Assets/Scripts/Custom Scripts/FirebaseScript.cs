@@ -70,11 +70,11 @@ public class FirebaseScript : MonoBehaviour
         if (FLAG_READY)
         {
             FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-            DocumentReference docRef = db.Collection(COLLECTION).Document("uniqueID");
+            DocumentReference docRef = db.Collection(COLLECTION).Document("uniqueID2");
             Dictionary<string, object> dataToSend = new Dictionary<string, object>
             {
                 { "name", "Gabriel Blackwell" },
-                { "testID", "uniqueID" },
+                { "testID", "uniqueID2" },
                 { "platform_start", DateTime.Now },
             };
             docRef.SetAsync(dataToSend).ContinueWithOnMainThread(task =>
@@ -106,13 +106,14 @@ public class FirebaseScript : MonoBehaviour
         {
             FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
             DocumentReference docRef = db.Collection(COLLECTION)
-                                         .Document("uniqueID").Collection("Task")
+                                         .Document("uniqueID2").Collection("Task")
                                          .Document("Data");
             Dictionary<string, object> dataToSend = new Dictionary<string, object>
             {{ FieldName, DateTime.Now }};
             // If logging end time, log elapsed time too
+            // TODO: What to do on the stop task button
             if (taskEnd != null && taskEnd > taskStart) 
-                dataToSend.Add("elapsed_time", taskEnd-taskStart);
+                dataToSend.Add("elapsed_time", (taskEnd-taskStart).ToString());
             // Send document
             docRef.SetAsync(dataToSend).ContinueWithOnMainThread(task =>
             {
@@ -136,11 +137,11 @@ public class FirebaseScript : MonoBehaviour
             CollectionReference collRef;
             // Choose which collection to add to depending on whether the user is doing the task
             if (FLAG_TASK)
-                collRef = db.Collection(COLLECTION).Document("uniqueID")
+                collRef = db.Collection(COLLECTION).Document("uniqueID2")
                             .Collection("Task").Document("Data")
                             .Collection("Moves");
             else
-                collRef = db.Collection(COLLECTION).Document("uniqueID")
+                collRef = db.Collection(COLLECTION).Document("uniqueID2")
                             .Collection("Moves");
             Dictionary<string, object> docData = new Dictionary<string, object>{
                 { "type", type },
