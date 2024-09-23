@@ -7,7 +7,7 @@ public class NewBehaviourScript1 : MonoBehaviour
     [SerializeField] RobotController robotController;
     AudioSource completedMove;
     AudioSource moveInProgress;
-    private bool playMusic = false;
+    private bool playRobotMovement = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,16 +20,17 @@ public class NewBehaviourScript1 : MonoBehaviour
     void Update()
     {
         // Play movement sound if the robot is moving
-        if (playMusic && !robotController.moveReady)
+        if (playRobotMovement && !robotController.moveReady)
         {
-            playMusic = false;
+            playRobotMovement = false;
             moveInProgress.Play();
         }
         else if (robotController.moveReady)
         {
-            playMusic = true;
+            if (!playRobotMovement)
+                completedMove.Play();
+            playRobotMovement = true;
             moveInProgress.Stop();
         }
-            
     }
 }

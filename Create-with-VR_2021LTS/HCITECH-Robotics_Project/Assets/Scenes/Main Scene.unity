@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18387485, g: 0.22900298, b: 0.30301175, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16163,7 +16163,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d4dee8f3916edc34b94e3154031679a7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.086
+  m_Volume: 0.054
   m_Pitch: 0.86
   Loop: 1
   Mute: 0
@@ -20229,13 +20229,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 16d882575d80a544fb9c1eec0ef6a85c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.165
+  m_Volume: 0.119
   m_Pitch: 0.23
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 127
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -20718,6 +20718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1724741358}
+  - component: {fileID: 1724741359}
   m_Layer: 0
   m_Name: SOUND
   m_TagString: Untagged
@@ -20742,6 +20743,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1724741359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724741356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fd625ab913e914da5f0834781e37ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotController: {fileID: 9072950306847877570}
 --- !u!1 &1725844415
 GameObject:
   m_ObjectHideFlags: 0
@@ -28750,7 +28764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 2021027604}
-  audioSource: {fileID: 0}
 --- !u!1 &2962457902093392041
 GameObject:
   m_ObjectHideFlags: 0
@@ -33298,7 +33311,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 1938011348}
-  audioSource: {fileID: 0}
 --- !u!4 &7135589614658425075
 Transform:
   m_ObjectHideFlags: 0
@@ -33621,7 +33633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 1965140137}
-  audioSource: {fileID: 0}
 --- !u!33 &7318667585792558373
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33701,7 +33712,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 505656529}
-  audioSource: {fileID: 0}
 --- !u!23 &7444387475781913042
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34496,7 +34506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 209538291}
-  audioSource: {fileID: 0}
 --- !u!23 &7961824681719277398
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36329,7 +36338,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostArm: {fileID: 854076419}
   ghostPivot: {fileID: 1802374852}
-  audioSource: {fileID: 0}
 --- !u!1 &9072950306847877569
 GameObject:
   m_ObjectHideFlags: 0
