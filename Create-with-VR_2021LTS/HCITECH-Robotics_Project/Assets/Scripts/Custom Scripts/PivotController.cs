@@ -166,9 +166,9 @@ public class PivotController : MonoBehaviour
             
         }
         // Stop the current routine and tell the UI that the robot is ready to move!
-        robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);
         ROSConnector.SendTimeData(System.DateTime.UtcNow);
+        robot.GetComponent<RobotController>().moveReady = true;
         StopCoroutine(MovePivot(reset));
     }
 }
