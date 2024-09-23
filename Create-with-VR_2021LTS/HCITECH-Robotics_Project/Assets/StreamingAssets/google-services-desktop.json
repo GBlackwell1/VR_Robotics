@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501909370089",
+    "project_id": "vrar-robotics",
+    "storage_bucket": "vrar-robotics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501909370089:android:420c6bac09e1de0563ec78",
+        "android_client_info": {
+          "package_name": "com.hi3techlab.vrar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1C2rcbfS-4Sw5omPOS6_8EhTZ-aw7Mrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

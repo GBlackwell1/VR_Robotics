@@ -62,15 +62,15 @@ public class PivotController : MonoBehaviour
     {
         // This feature is disabled for the base since the base of both robots 
         // should always be in the same position
-        if (!isReset)
-        {
+        //if (!isReset)
+        //{
             // Check for rotation since eccentric pivots will have same position
             ghostArm.SetActive(false);
             robot.GetComponent<RobotController>().moveReady = true;
             // User does not get to submit a move to the robot when the ghost arm is deactivated
             robot.GetComponent<RobotController>().submitReady = false;
-        }
-        else { ghostArm.SetActive(false); }
+        //}
+        //else { ghostArm.SetActive(false); }
 
     }
 

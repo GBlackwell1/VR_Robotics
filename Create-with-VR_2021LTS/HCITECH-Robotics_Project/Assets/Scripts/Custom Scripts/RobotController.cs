@@ -24,6 +24,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] GameObject ghostSegmentFivePivot;
     [SerializeField] GameObject ghostClawPivot;
     private FirebaseScript ROSConnector;
+   
 
     public bool moveReady = true;
     public bool submitReady = false;
@@ -33,6 +34,7 @@ public class RobotController : MonoBehaviour
     public void Start()
     {
         ROSConnector = GameObject.Find("FIREBASE").GetComponent<FirebaseScript>();
+        
     }
 
     // Call one function instead of 5 different functions

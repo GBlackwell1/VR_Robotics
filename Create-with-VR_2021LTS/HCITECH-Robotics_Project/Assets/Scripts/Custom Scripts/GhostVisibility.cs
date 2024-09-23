@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,5 +55,22 @@ public class GhostVisibility : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Checks whether the ghost arm is in the exact position of the real arm
+    /// </summary>
+    /// <returns>A boolean value based on if ghost equals real</returns>
+    public bool GhostMatch()
+    {
+        for (int i = 0; i < ghostModels.Length; i++)
+        {
+            if (ghostModels[i].transform.position != models[i].transform.position &&
+                ghostModels[i].transform.rotation != models[i].transform.rotation)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class NewBehaviourScript1 : MonoBehaviour
 {
     [SerializeField] RobotController robotController;
+    GhostVisibility ghostArm;
     AudioSource completedMove;
     AudioSource moveInProgress;
     private bool playRobotMovement = false;
@@ -14,6 +15,8 @@ public class NewBehaviourScript1 : MonoBehaviour
         // Get audio sources from all children under manager
         completedMove = gameObject.GetComponentsInChildren<AudioSource>()[1];
         moveInProgress = gameObject.GetComponentsInChildren<AudioSource>()[2];
+        ghostArm = GameObject.Find("Ghost Arm - New").GetComponent<GhostVisibility>();
+        moveInProgress.Play(); moveInProgress.Pause();
     }
 
     // Update is called once per frame
@@ -23,14 +26,14 @@ public class NewBehaviourScript1 : MonoBehaviour
         if (playRobotMovement && !robotController.moveReady)
         {
             playRobotMovement = false;
-            moveInProgress.Play();
+            moveInProgress.UnPause();
         }
         else if (robotController.moveReady)
         {
-            if (!playRobotMovement)
+            if (!playRobotMovement && ghostArm.GhostMatch())
                 completedMove.Play();
             playRobotMovement = true;
-            moveInProgress.Stop();
+            moveInProgress.Pause();
         }
     }
 }
