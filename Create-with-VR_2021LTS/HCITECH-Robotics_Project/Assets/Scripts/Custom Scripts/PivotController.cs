@@ -20,6 +20,7 @@ public class PivotController : MonoBehaviour
     private FirebaseScript ROSConnector;
     private RobotManager robotManager;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -163,7 +164,7 @@ public class PivotController : MonoBehaviour
                 GhostArmActivation();
             }
             
-        } 
+        }
         // Stop the current routine and tell the UI that the robot is ready to move!
         robot.GetComponent<RobotController>().moveReady = true;
         GhostArmDeactivation(false);

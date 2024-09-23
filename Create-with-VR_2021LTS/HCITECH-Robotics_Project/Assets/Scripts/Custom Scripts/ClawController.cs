@@ -48,8 +48,7 @@ public class ClawController : MonoBehaviour
                 isMoving = true;
                 ghostFinger1.transform.Rotate(0f, 0f, speed * Time.deltaTime);
                 ghostFinger2.transform.Rotate(0f, 0f, speed * Time.deltaTime);
-                ghostFinger3.transform.Rotate(0f, 0f, speed * Time.deltaTime);
-                robot.GetComponent<RobotController>().moveReady = false;
+                ghostFinger3.transform.Rotate(0f, 0f, speed * Time.deltaTime);      
             } else // If the claw is closed and has been selected, do nothing
             {
                 if(isMoving)
@@ -61,7 +60,6 @@ public class ClawController : MonoBehaviour
                         robot.GetComponent<RobotController>().submitReady = false;
                         GhostArmDeactivation(false);
                     }
-                    robot.GetComponent<RobotController>().moveReady = true;
                     isMoving = false;
                 }
                 isClosed = true;
@@ -76,7 +74,6 @@ public class ClawController : MonoBehaviour
                 ghostFinger1.transform.Rotate(0f, 0f, speed* -Time.deltaTime);
                 ghostFinger2.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
                 ghostFinger3.transform.Rotate(0f, 0f, speed * -Time.deltaTime);
-                robot.GetComponent<RobotController>().moveReady = false;
             }
             else // If the claw is open and has not been selected, do nothing
             {
@@ -89,7 +86,6 @@ public class ClawController : MonoBehaviour
                         robot.GetComponent<RobotController>().submitReady = false;
                         GhostArmDeactivation(false);
                     }
-                    robot.GetComponent<RobotController>().moveReady = true;
                     isMoving = false;
                 }
                 isClosed = false;
