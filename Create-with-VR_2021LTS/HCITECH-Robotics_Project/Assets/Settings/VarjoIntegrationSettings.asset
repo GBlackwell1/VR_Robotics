@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8a2692044c3a44da3fec84e3b9b16d, type: 3}
   m_Name: VarjoIntegrationSettings
   m_EditorClassIdentifier: 
-  targetHeadsetModel: 0
+  targetHeadsetModel: 4
   enableHandTracking: 0
   calibrationShortcut: 282
   gazeOutputFilterType: 0

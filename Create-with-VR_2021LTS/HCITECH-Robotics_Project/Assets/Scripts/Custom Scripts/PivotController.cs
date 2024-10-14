@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Presets;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PivotController : MonoBehaviour
 {
