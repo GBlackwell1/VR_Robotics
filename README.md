@@ -1,10 +1,5 @@
 # VR_Robotics
 
-## Documentation for currently used resources
-[Rosbridge](http://wiki.ros.org/rosbridge_suite) - Initial work done <br />
-[Roslibjs](wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) - Initial work done <br />
-[Unity Web Request](https://docs.unity3d.com/Manual/UnityWebRequest-HLAPI.html) - Initial work done <br />
-
 # ROS Installation
 To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
 For details on the installation of ROS-noetic, please refer to ROS' official [documentation](http://wiki.ros.org/Installation/Ubuntu).
@@ -26,7 +21,7 @@ via node, and launch unity to test the connection. Watching the output of the no
 ## VirtualBox
 We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructions: <br />[TODO: GIF]<br />
 
-Once done you must forward two ports, 9090 this websocket, and 8000 the custom node server, see below the images on how to correctly set up the ports: <br />[TODO: GIF]<br />
+Once done you must forward create a bridged network adapter, do so here but make sure your network adapter reflects the one on your system: <br />[TODO: GIF]<br />
 
 Once that is done, unplug the robot and reboot the instance. Wait until the instance is fully booted and plug in the robot, remove the device using "Devices and Settings" in windows, not physically. Once removed through windows, physically unplug the device and plug it in, the USB should now be filtered through to your instance and will have a name "VirtualBox USB" if done correctly.
 
@@ -35,10 +30,10 @@ First, setup a directory in home called ```catkin_ws``` and create a directory n
 Next run the commands:
 ```
 cd ~/catkin_ws/src
-git clone -b noetic-devel https://github.com/Kinovarobotics/kinova-ros kinova-ros
+git clone -b noetic-devel https://github.com/GBlackwell1/kinova-ros-unity
 cd ~/catkin_ws
 ```
-This will clone Kinova's API for the robot. Before you fully create the workspace, you need to install all dependencies that Kinova requires. To do so, run the following command, this will take a while to complete:
+This will clone our version of Kinova's API for the robot. Before you fully create the workspace, you need to install all dependencies that Kinova requires. To do so, run the following command, this will take a while to complete:
 ```
 rosdep install --from-paths src -y --ignore-src
 ```
@@ -49,8 +44,27 @@ roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=m1n6s300
 ```
 You should see a succesful connection be established with the robot and listing all the rostopics will show all the currently operating topics that Kinova's driver has created.
 
+## Connecting Unity and ROS
+Once the ROS master service is running and you have launched Kinova's stack, it's time to launch our project's specific items. The first of which is to start the rosbridge instance by running:
+```
+roslaunch rosbridge_server rosbridge_websocket.launch
+```
+This command launches the websocket that stays in direct communication with the ROS instance. <br/><br/>
+
+Next go ahead and start our node server by navigating into WebRobotics and making sure everything is installed by running `npm i`, next start the server by running:
+```
+node robo-server.js
+```
+You should see output that it has succesfully connected to the previously ran websocket.<br/><br/>
+
+Finally you should be able to start our custom ROS node. Go to your catkin_ws and run:
+```
+rosrun kinova_unity unity_comm.py
+```
+This will startup our node that facilitates connection between the websocket and the robot. For more information on this repository see this link [here](https://github.com/GBlackwell1/kinova-ros-unity).
+
 ## Other Information
-[Demonstration on how the backend works](https://youtu.be/JW2PU8VDYow)
+[Demonstration on how the backend works](https://youtu.be/JW2PU8VDYow) <- OUTDATED 
 
 ## Running the project on CEC1081
 Always make sure Oculus is launched on the computer to ensure a wired connection. <br />
