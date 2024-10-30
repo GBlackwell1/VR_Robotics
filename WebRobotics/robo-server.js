@@ -19,6 +19,8 @@ let node1; let node2; let node3;
 let node4; let node5; let node6;
 let pos_x; let pos_y; let pos_z;
 
+let kinovaState;
+
 // Handle ros connection to rosbridge websocket
 var ros = new ROSLIB.Ros({
     url : 'ws://localhost:9090'
@@ -45,10 +47,19 @@ var receiveData = new ROSLIB.Topic({
     messageType: 'std_msgs/String'
 })
 // Subscribe to the topic
+var receiveJointCmd = new ROSLIB.Topic({
+    ros: ros,
+    name: '/outgoing_jointcmd',
+    messageType: 'std_msgs/String'
+})
+// Subscribe to the data topics
 receiveData.subscribe(function(msg) {
     console.log('Recieved message on '+receiveData.name+' : '+msg.data)
     receiveData.emit('received', msg.data)
 })
+receiveJointCmd.subscribe(function(msg) {
+    kinovaState = msg.data
+}) 
 
 // Handle requests
 app.get('/', (req, res) => {
@@ -62,6 +73,9 @@ app.get('/get', (req, res) => {
     receiveData.waitFor('received').then(function (data) {
         res.send(data)
     })
+})
+app.get('/get_livedata', (req, res) => {
+    res.send(kinovaState)
 })
 
 app.post('/get', (req, res) => {
