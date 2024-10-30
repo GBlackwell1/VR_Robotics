@@ -1,5 +1,10 @@
 # VR_Robotics
 
+# Official Documentation
+[v0.3](https://docs.google.com/document/d/1Vq1E06NB6uMMl9waGwsURmFeGithhr47/edit#heading=h.gjdgxs) - CURRENT<br />
+[v0.2](https://docs.google.com/document/d/1iEIsHn4ZuEX7BySoSJjzWleKyucmKfP0/edit#heading=h.gjdgxs) <br />
+[v0.1](https://docs.google.com/document/d/13ZL7vmcc42b7DCAwTz1lXTCw9_UmrbYe/edit) <br />
+
 # ROS Installation
 To use ROS and to have the best experience, it is recommended you use Ubuntu 20.04, as this is the release that supports ROS-noetic.
 For details on the installation of ROS-noetic, please refer to ROS' official [documentation](http://wiki.ros.org/Installation/Ubuntu).
