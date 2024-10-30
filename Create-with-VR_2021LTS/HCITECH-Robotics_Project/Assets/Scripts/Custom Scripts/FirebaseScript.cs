@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Firebase;
+using Firebase.Database;
+using JetBrains.Annotations; 
+using Firebase.Storage;
 using Firebase.Firestore;
 using Firebase.Extensions;
+using System.Text.RegularExpressions;
 using System;
+using Unity.XR.CoreUtils;
+using UnityEditor.PackageManager;
 
 public class FirebaseScript : MonoBehaviour
 {

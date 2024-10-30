@@ -138,29 +138,6 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
---- !u!114 &-4944722442384923587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c465bd23c9c4fb442ae89117552a5f3f, type: 3}
-  m_Name: HandTrackingFeature Standalone
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Ultraleap Hand Tracking
-  version: 1.0.0
-  featureIdInternal: com.ultraleap.tracking.openxr.feature.handtracking
-  openxrExtensionStrings: XR_EXT_hand_tracking XR_ULTRALEAP_hand_tracking_forearm
-    XR_ULTRALEAP_hand_tracking_hints
-  company: Ultraleap
-  priority: 0
-  required: 0
-  metaPermissions: 1
-  metaHighFrequency: 1
 --- !u!114 &-4873730644125108915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,29 +279,6 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
---- !u!114 &-2519598311985945540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c465bd23c9c4fb442ae89117552a5f3f, type: 3}
-  m_Name: HandTrackingFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Ultraleap Hand Tracking
-  version: 1.0.0
-  featureIdInternal: com.ultraleap.tracking.openxr.feature.handtracking
-  openxrExtensionStrings: XR_EXT_hand_tracking XR_ULTRALEAP_hand_tracking_forearm
-    XR_ULTRALEAP_hand_tracking_hints
-  company: Ultraleap
-  priority: 0
-  required: 0
-  metaPermissions: 1
-  metaHighFrequency: 1
 --- !u!114 &-2271945990821673714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +337,6 @@ MonoBehaviour:
   - {fileID: -6835621409009650533}
   - {fileID: 4551282390900646447}
   - {fileID: 7985639789103618443}
-  - {fileID: -4944722442384923587}
   - {fileID: -5530874319001451080}
   - {fileID: 7398921005798238389}
   - {fileID: 3128996249378202262}
@@ -754,7 +707,6 @@ MonoBehaviour:
   - {fileID: -2642877901072831993}
   - {fileID: -3400456908588989953}
   - {fileID: -3309885961163347570}
-  - {fileID: -2519598311985945540}
   - {fileID: 3466697353013665970}
   - {fileID: 3168575946016990294}
   - {fileID: -4276212828553501004}
