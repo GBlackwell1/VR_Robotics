@@ -31,6 +31,7 @@ public class FirebaseScript : MonoBehaviour
                              "move recalled", "move lost"};
     //private int taskMove = 0;
     //private int regMove = 0;
+    private bool liveDataRq = false;
     private DateTime taskStart; private DateTime taskEnd;
     void Awake()
     {
@@ -61,6 +62,14 @@ public class FirebaseScript : MonoBehaviour
     private void Start()
     {
    
+    }
+
+    private void Update()
+    {
+        if (!liveDataRq)
+        {
+            StartCoroutine(LiveDataCoroutine());
+        }
     }
     /// <summary>
     /// Intializes the participant in firebase upon entering the program 
@@ -322,6 +331,24 @@ public class FirebaseScript : MonoBehaviour
         {
             /*Debug.Log("Succesfully posted time data to " + SERVER_NAME);*/
         }
+    }
+
+    IEnumerator LiveDataCoroutine()
+    {
+        liveDataRq = true;
+        UnityWebRequest webRequest = UnityWebRequest.Get(SERVER_NAME + "_livedata");
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Error occured in retrieval of LiveDataCoroutine: "+webRequest.error);
+        } 
+        else
+        {
+            string dataRetrieved = webRequest.downloadHandler.text;
+            Debug.Log(dataRetrieved);
+        }
+        liveDataRq = false;
     }
 
 }
