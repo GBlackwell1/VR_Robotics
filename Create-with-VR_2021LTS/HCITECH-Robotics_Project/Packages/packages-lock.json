@@ -6,18 +6,6 @@
       "source": "embedded",
       "dependencies": {}
     },
-    "com.threespacelab.imotions.core": {
-      "version": "file:../Library/PackageCache/com.threespacelab.imotions.varjointegration@8596f7bd7f18/Packages~/com.threespacelab.imotions.core-1.0.4.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
-    "com.threespacelab.imotions.varjointegration": {
-      "version": "file:C:/Users/OculusDev/Desktop/com.threespacelab.imotions.varjointegration-2.2.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.unity.ai.navigation": {
       "version": "1.1.3",
       "depth": 0,
@@ -28,7 +16,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.4",
+      "version": "1.8.7",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -39,13 +27,6 @@
     "com.unity.collab-proxy": {
       "version": "2.0.5",
       "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.editorcoroutines": {
-      "version": "1.0.0",
-      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -83,7 +64,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.5.1",
+      "version": "1.6.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -103,14 +84,14 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.settings-manager": "1.0.3",
         "com.unity.modules.physics": "1.0.0",
-        "com.unity.settings-manager": "1.0.3"
+        "com.unity.modules.imgui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "14.0.7",
+      "version": "14.0.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -121,14 +102,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "14.0.7",
+      "version": "14.0.8",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
         "com.unity.burst": "1.8.4",
-        "com.unity.render-pipelines.core": "14.0.7",
-        "com.unity.shadergraph": "14.0.7"
+        "com.unity.render-pipelines.core": "14.0.8",
+        "com.unity.shadergraph": "14.0.8"
       }
     },
     "com.unity.searcher": {
@@ -146,11 +127,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "14.0.7",
+      "version": "14.0.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "14.0.7",
+        "com.unity.render-pipelines.core": "14.0.8",
         "com.unity.searcher": "4.9.2"
       }
     },
@@ -195,9 +176,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -231,24 +212,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.xr.arfoundation": {
-      "version": "5.1.3",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.inputsystem": "1.3.0",
-        "com.unity.mathematics": "1.2.5",
-        "com.unity.xr.core-utils": "2.2.1",
-        "com.unity.xr.management": "4.0.1",
-        "com.unity.editorcoroutines": "1.0.0",
-        "com.unity.modules.particlesystem": "1.0.0",
-        "com.unity.modules.unityanalytics": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.xr.core-utils": {
       "version": "2.2.1",
       "depth": 1,
@@ -263,14 +226,14 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.ugui": "1.0.0",
         "com.unity.inputsystem": "1.4.4",
         "com.unity.mathematics": "1.2.6",
+        "com.unity.ugui": "1.0.0",
+        "com.unity.xr.core-utils": "2.2.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.10",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
-        "com.unity.xr.core-utils": "2.2.0",
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.10"
+        "com.unity.modules.physics": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -285,13 +248,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
-      "version": "4.4.0",
-      "depth": 1,
+      "version": "4.3.3",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.subsystems": "1.0.0",
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0",
-        "com.unity.modules.subsystems": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.7"
       },
       "url": "https://packages.unity.com"
@@ -301,21 +264,12 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.inputsystem": "1.4.4",
-        "com.unity.xr.core-utils": "2.1.1",
         "com.unity.xr.management": "4.0.1",
-        "com.unity.xr.legacyinputhelpers": "2.1.2"
+        "com.unity.xr.legacyinputhelpers": "2.1.2",
+        "com.unity.inputsystem": "1.4.4",
+        "com.unity.xr.core-utils": "2.1.1"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.varjo.xr": {
-      "version": "file:C:/Users/OculusDev/Documents/GitHub/VarjoUnityXRPlugin",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.xr.management": "4.4.0",
-        "com.unity.xr.arfoundation": "5.1.3"
-      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
