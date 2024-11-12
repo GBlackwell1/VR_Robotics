@@ -24,11 +24,14 @@ After that, start up both the websocket for rosbridge, the server
 via node, and launch unity to test the connection. Watching the output of the node server should give you confirmation that all three pieces are established correctly and are connected. Echoing the newly created rostopic and restarting Unity will yield output in the terminal that is echoing the topic, if done correctly. 
 
 ## VirtualBox
-We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructions: <br />[TODO: GIF]<br />
+We are using VirtualBox with a Ubuntu 20.04 ISO. This VirtualBox instance handles middleman communication between Unity and Kinova. Download a 20.04 ISO from Ubuntu's website and install and create a VirtualBox instance from the ISO. Once completed, you most forward ports and usb devices through Windows to your new instance. Start by plugging in the Kinova robotics and navigating and creating a filter for the device, see below a picture of correct instructions: <br />![image](https://github.com/user-attachments/assets/efdc2a26-12cf-4d28-9b2d-8eca6d82eda1)
+<br />
 
-Once done you must forward create a bridged network adapter, do so here but make sure your network adapter reflects the one on your system: <br />[TODO: GIF]<br />
+Once done you must forward create a bridged network adapter, do so here but make sure your network adapter reflects the one on your system: <br />![image](https://github.com/user-attachments/assets/649e089a-6adc-4d22-aa83-9d83e7042a89)
+<br />
 
-Once that is done, unplug the robot and reboot the instance. Wait until the instance is fully booted and plug in the robot, remove the device using "Devices and Settings" in windows, not physically. Once removed through windows, physically unplug the device and plug it in, the USB should now be filtered through to your instance and will have a name "VirtualBox USB" if done correctly.
+Once that is done, unplug the robot and reboot the instance. Wait until the instance is fully booted and plug in the robot, remove the device using "Devices and Settings" in windows, not physically. Once removed through windows, physically unplug the device and plug it in, the USB should now be filtered through to your instance and will have a name "VirtualBox USB" if done correctly.<br />![image](https://github.com/user-attachments/assets/0b4276b9-2f97-4ef4-b3f0-cbdf73dd8ab6)<br />
+
 
 ## Kinova ROS
 First, setup a directory in home called ```catkin_ws``` and create a directory named ```src``` within it. 
