@@ -1,4 +1,6 @@
 # VR_Robotics
+Development was tied to research at the University of South Carolina. Project is no longer under development after departure.
+
 
 # Official Documentation
 [v0.3](https://docs.google.com/document/d/1Vq1E06NB6uMMl9waGwsURmFeGithhr47/edit#heading=h.gjdgxs) - CURRENT<br />
